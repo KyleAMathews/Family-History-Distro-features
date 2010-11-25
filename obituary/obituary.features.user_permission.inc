@@ -1,0 +1,49 @@
+<?php
+
+/**
+ * Implementation of hook_user_default_permissions().
+ */
+function obituary_user_default_permissions() {
+  $permissions = array();
+
+  // Exported permission: create obituary content
+  $permissions['create obituary content'] = array(
+    'name' => 'create obituary content',
+    'roles' => array(
+      '0' => 'admin',
+      '1' => 'can add and edit pages',
+    ),
+  );
+
+  // Exported permission: delete any obituary content
+  $permissions['delete any obituary content'] = array(
+    'name' => 'delete any obituary content',
+    'roles' => array(),
+  );
+
+  // Exported permission: delete own obituary content
+  $permissions['delete own obituary content'] = array(
+    'name' => 'delete own obituary content',
+    'roles' => array(),
+  );
+
+  // Exported permission: edit any obituary content
+  $permissions['edit any obituary content'] = array(
+    'name' => 'edit any obituary content',
+    'roles' => array(
+      '0' => 'admin',
+      '1' => 'can add and edit pages',
+    ),
+  );
+
+  // Exported permission: edit own obituary content
+  $permissions['edit own obituary content'] = array(
+    'name' => 'edit own obituary content',
+    'roles' => array(
+      '0' => 'admin',
+      '1' => 'can add and edit pages',
+    ),
+  );
+
+  return $permissions;
+}

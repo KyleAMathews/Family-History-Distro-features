@@ -1,0 +1,3 @@
+<?php
+
+include_once('journal.features.inc');
