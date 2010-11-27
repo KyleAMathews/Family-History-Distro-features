@@ -6,9 +6,9 @@
 function patriarchal_blessing_menu_default_menu_links() {
   $menu_links = array();
 
-  // Exported menu link: primary-links:patriarchal-blessings
-  $menu_links['primary-links:patriarchal-blessings'] = array(
-    'menu_name' => 'primary-links',
+  // Exported menu link: main-menu:patriarchal-blessings
+  $menu_links['main-menu:patriarchal-blessings'] = array(
+    'menu_name' => 'main-menu',
     'link_path' => 'patriarchal-blessings',
     'router_path' => 'patriarchal-blessings',
     'link_title' => 'Patriarchal blessings',

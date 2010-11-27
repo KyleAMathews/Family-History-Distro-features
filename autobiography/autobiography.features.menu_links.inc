@@ -6,9 +6,9 @@
 function autobiography_menu_default_menu_links() {
   $menu_links = array();
 
-  // Exported menu link: primary-links:autobiographies
-  $menu_links['primary-links:autobiographies'] = array(
-    'menu_name' => 'primary-links',
+  // Exported menu link: main-menu:autobiographies
+  $menu_links['main-menu:autobiographies'] = array(
+    'menu_name' => 'main-menu',
     'link_path' => 'autobiographies',
     'router_path' => 'autobiographies',
     'link_title' => 'Autobiographies',

@@ -49,7 +49,7 @@ function will_views_default_views() {
   $handler->display->display_options['menu']['title'] = 'Wills';
   $handler->display->display_options['menu']['description'] = 'Listing of all Stories';
   $handler->display->display_options['menu']['weight'] = '0';
-  $handler->display->display_options['menu']['name'] = 'primary-links';
+  $handler->display->display_options['menu']['name'] = 'main-menu';
 
   $views[$view->name] = $view;
 

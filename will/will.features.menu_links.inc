@@ -6,9 +6,9 @@
 function will_menu_default_menu_links() {
   $menu_links = array();
 
-  // Exported menu link: primary-links:wills
-  $menu_links['primary-links:wills'] = array(
-    'menu_name' => 'primary-links',
+  // Exported menu link: main-menu:wills
+  $menu_links['main-menu:wills'] = array(
+    'menu_name' => 'main-menu',
     'link_path' => 'wills',
     'router_path' => 'wills',
     'link_title' => 'Wills',

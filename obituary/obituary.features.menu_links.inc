@@ -6,9 +6,9 @@
 function obituary_menu_default_menu_links() {
   $menu_links = array();
 
-  // Exported menu link: primary-links:obituaries
-  $menu_links['primary-links:obituaries'] = array(
-    'menu_name' => 'primary-links',
+  // Exported menu link: main-menu:obituaries
+  $menu_links['main-menu:obituaries'] = array(
+    'menu_name' => 'main-menu',
     'link_path' => 'obituaries',
     'router_path' => 'obituaries',
     'link_title' => 'Obituaries',

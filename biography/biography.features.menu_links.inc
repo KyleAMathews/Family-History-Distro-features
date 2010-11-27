@@ -6,9 +6,9 @@
 function biography_menu_default_menu_links() {
   $menu_links = array();
 
-  // Exported menu link: primary-links:biographies
-  $menu_links['primary-links:biographies'] = array(
-    'menu_name' => 'primary-links',
+  // Exported menu link: main-menu:biographies
+  $menu_links['main-menu:biographies'] = array(
+    'menu_name' => 'main-menu',
     'link_path' => 'biographies',
     'router_path' => 'biographies',
     'link_title' => 'Biographies',

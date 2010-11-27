@@ -6,9 +6,9 @@
 function journal_menu_default_menu_links() {
   $menu_links = array();
 
-  // Exported menu link: primary-links:journals
-  $menu_links['primary-links:journals'] = array(
-    'menu_name' => 'primary-links',
+  // Exported menu link: main-menu:journals
+  $menu_links['main-menu:journals'] = array(
+    'menu_name' => 'main-menu',
     'link_path' => 'journals',
     'router_path' => 'journals',
     'link_title' => 'Journals',

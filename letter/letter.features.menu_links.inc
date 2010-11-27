@@ -6,9 +6,9 @@
 function letter_menu_default_menu_links() {
   $menu_links = array();
 
-  // Exported menu link: primary-links:letters
-  $menu_links['primary-links:letters'] = array(
-    'menu_name' => 'primary-links',
+  // Exported menu link: main-menu:letters
+  $menu_links['main-menu:letters'] = array(
+    'menu_name' => 'main-menu',
     'link_path' => 'letters',
     'router_path' => 'letters',
     'link_title' => 'Letters',

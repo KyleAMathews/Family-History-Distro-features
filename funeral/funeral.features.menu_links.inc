@@ -6,9 +6,9 @@
 function funeral_menu_default_menu_links() {
   $menu_links = array();
 
-  // Exported menu link: primary-links:funerals
-  $menu_links['primary-links:funerals'] = array(
-    'menu_name' => 'primary-links',
+  // Exported menu link: main-menu:funerals
+  $menu_links['main-menu:funerals'] = array(
+    'menu_name' => 'main-menu',
     'link_path' => 'funerals',
     'router_path' => 'funerals',
     'link_title' => 'Funerals',

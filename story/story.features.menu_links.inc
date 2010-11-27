@@ -6,9 +6,9 @@
 function story_menu_default_menu_links() {
   $menu_links = array();
 
-  // Exported menu link: primary-links:stories
-  $menu_links['primary-links:stories'] = array(
-    'menu_name' => 'primary-links',
+  // Exported menu link: main-menu:stories
+  $menu_links['main-menu:stories'] = array(
+    'menu_name' => 'main-menu',
     'link_path' => 'stories',
     'router_path' => 'stories',
     'link_title' => 'Stories',

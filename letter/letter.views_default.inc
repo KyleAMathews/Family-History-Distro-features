@@ -49,7 +49,7 @@ function letter_views_default_views() {
   $handler->display->display_options['menu']['title'] = 'Letters';
   $handler->display->display_options['menu']['description'] = 'Listing of all letters';
   $handler->display->display_options['menu']['weight'] = '0';
-  $handler->display->display_options['menu']['name'] = 'primary-links';
+  $handler->display->display_options['menu']['name'] = 'main-menu';
 
   $views[$view->name] = $view;
 
