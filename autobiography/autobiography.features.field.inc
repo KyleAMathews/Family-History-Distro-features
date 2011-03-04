@@ -94,6 +94,7 @@ function autobiography_field_default_fields() {
       'settings' => array(
         'display_summary' => TRUE,
         'text_processing' => 1,
+        'user_register_form' => FALSE,
       ),
       'widget' => array(
         'module' => 'text',
@@ -102,9 +103,77 @@ function autobiography_field_default_fields() {
           'summary_rows' => 5,
         ),
         'type' => 'text_textarea_with_summary',
-        'weight' => 2,
+        'weight' => '2',
       ),
       'widget_type' => 'text_textarea_with_summary',
+    ),
+  );
+
+  // Exported field: 'node-autobiography-field_source'
+  $fields['node-autobiography-field_source'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_source',
+      'foreign keys' => array(
+        'format' => array(
+          'columns' => array(
+            'format' => 'format',
+          ),
+          'table' => 'filter_format',
+        ),
+      ),
+      'indexes' => array(
+        'format' => array(
+          '0' => 'format',
+        ),
+      ),
+      'module' => 'text',
+      'settings' => array(
+        'max_length' => '5000',
+      ),
+      'translatable' => '1',
+      'type' => 'text',
+    ),
+    'field_instance' => array(
+      'bundle' => 'autobiography',
+      'default_value' => NULL,
+      'deleted' => '0',
+      'description' => 'Enter the source from which the autobiography was taken from, e.g. family records, a book, a genealogical association, etc. ',
+      'display' => array(
+        'default' => array(
+          'label' => 'above',
+          'module' => 'text',
+          'settings' => array(),
+          'type' => 'text_default',
+          'weight' => 14,
+        ),
+        'teaser' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+      ),
+      'entity_type' => 'node',
+      'field_name' => 'field_source',
+      'label' => 'Source',
+      'required' => 0,
+      'settings' => array(
+        'text_processing' => '0',
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'text',
+        'settings' => array(
+          'size' => '60',
+        ),
+        'type' => 'text_textfield',
+        'weight' => '3',
+      ),
     ),
   );
 
@@ -200,6 +269,7 @@ function autobiography_field_default_fields() {
         'file_directory' => '',
         'file_extensions' => 'jpg jpeg gif png txt html doc xls pdf ppt pps odt ods odp',
         'max_filesize' => '7 MB',
+        'user_register_form' => FALSE,
       ),
       'widget' => array(
         'module' => 'file',
@@ -210,279 +280,6 @@ function autobiography_field_default_fields() {
         'weight' => '1',
       ),
       'widget_type' => 'file_generic',
-    ),
-  );
-
-  // Exported field: 'node-autobiography-taxonomy_vocabulary_2'
-  $fields['node-autobiography-taxonomy_vocabulary_2'] = array(
-    'field_config' => array(
-      'active' => '1',
-      'cardinality' => '-1',
-      'deleted' => '0',
-      'entity_types' => array(),
-      'field_name' => 'taxonomy_vocabulary_2',
-      'indexes' => array(),
-      'module' => 'taxonomy',
-      'settings' => array(
-        'allowed_values' => array(
-          '0' => array(
-            'parent' => 0,
-            'vocabulary' => 'vocabulary_2',
-          ),
-        ),
-        'required' => TRUE,
-      ),
-      'translatable' => '0',
-      'type' => 'taxonomy_term_reference',
-    ),
-    'field_instance' => array(
-      'bundle' => 'autobiography',
-      'default_value' => NULL,
-      'deleted' => '0',
-      'description' => '',
-      'display' => array(
-        'default' => array(
-          'label' => 'above',
-          'module' => 'taxonomy',
-          'settings' => array(),
-          'type' => 'taxonomy_term_reference_link',
-          'weight' => 10,
-        ),
-        'full' => array(
-          'label' => 'above',
-          'settings' => array(),
-          'type' => 'hidden',
-          'weight' => 0,
-        ),
-        'print' => array(
-          'label' => 'above',
-          'settings' => array(),
-          'type' => 'hidden',
-          'weight' => 0,
-        ),
-        'rss' => array(
-          'label' => 'above',
-          'settings' => array(),
-          'type' => 'hidden',
-          'weight' => 0,
-        ),
-        'search_index' => array(
-          'label' => 'above',
-          'settings' => array(),
-          'type' => 'hidden',
-          'weight' => 0,
-        ),
-        'search_result' => array(
-          'label' => 'above',
-          'settings' => array(),
-          'type' => 'hidden',
-          'weight' => 0,
-        ),
-        'teaser' => array(
-          'label' => 'above',
-          'module' => 'taxonomy',
-          'settings' => array(),
-          'type' => 'taxonomy_term_reference_link',
-          'weight' => 10,
-        ),
-      ),
-      'entity_type' => 'node',
-      'field_name' => 'taxonomy_vocabulary_2',
-      'label' => 'Family',
-      'settings' => array(),
-      'widget' => array(
-        'module' => 'options',
-        'settings' => array(),
-        'type' => 'options_select',
-        'weight' => 0,
-      ),
-    ),
-  );
-
-  // Exported field: 'node-autobiography-taxonomy_vocabulary_7'
-  $fields['node-autobiography-taxonomy_vocabulary_7'] = array(
-    'field_config' => array(
-      'active' => '1',
-      'cardinality' => '1',
-      'deleted' => '0',
-      'entity_types' => array(),
-      'field_name' => 'taxonomy_vocabulary_7',
-      'indexes' => array(),
-      'module' => 'taxonomy',
-      'settings' => array(
-        'allowed_values' => array(
-          '0' => array(
-            'parent' => 0,
-            'vocabulary' => 'vocabulary_7',
-          ),
-        ),
-        'required' => TRUE,
-      ),
-      'translatable' => '0',
-      'type' => 'taxonomy_term_reference',
-    ),
-    'field_instance' => array(
-      'bundle' => 'autobiography',
-      'default_value' => NULL,
-      'deleted' => '0',
-      'description' => '',
-      'display' => array(
-        'default' => array(
-          'label' => 'above',
-          'module' => 'taxonomy',
-          'settings' => array(),
-          'type' => 'taxonomy_term_reference_link',
-          'weight' => 10,
-        ),
-        'full' => array(
-          'label' => 'above',
-          'settings' => array(),
-          'type' => 'hidden',
-          'weight' => 0,
-        ),
-        'print' => array(
-          'label' => 'above',
-          'settings' => array(),
-          'type' => 'hidden',
-          'weight' => 0,
-        ),
-        'rss' => array(
-          'label' => 'above',
-          'settings' => array(),
-          'type' => 'hidden',
-          'weight' => 0,
-        ),
-        'search_index' => array(
-          'label' => 'above',
-          'settings' => array(),
-          'type' => 'hidden',
-          'weight' => 0,
-        ),
-        'search_result' => array(
-          'label' => 'above',
-          'settings' => array(),
-          'type' => 'hidden',
-          'weight' => 0,
-        ),
-        'teaser' => array(
-          'label' => 'above',
-          'module' => 'taxonomy',
-          'settings' => array(),
-          'type' => 'taxonomy_term_reference_link',
-          'weight' => 10,
-        ),
-      ),
-      'entity_type' => 'node',
-      'field_name' => 'taxonomy_vocabulary_7',
-      'label' => 'private',
-      'settings' => array(),
-      'widget' => array(
-        'module' => 'options',
-        'settings' => array(),
-        'type' => 'options_select',
-        'weight' => 0,
-      ),
-    ),
-  );
-
-  // Exported field: 'node-autobiography-taxonomyextra'
-  $fields['node-autobiography-taxonomyextra'] = array(
-    'field_config' => array(
-      'active' => '1',
-      'cardinality' => '-1',
-      'deleted' => '0',
-      'entity_types' => array(),
-      'field_name' => 'taxonomyextra',
-      'indexes' => array(),
-      'module' => 'taxonomy',
-      'settings' => array(
-        'allowed_values' => array(
-          '0' => array(
-            'parent' => 0,
-            'vocabulary' => 'vocabulary_1',
-          ),
-          '1' => array(
-            'parent' => 0,
-            'vocabulary' => 'vocabulary_2',
-          ),
-          '2' => array(
-            'parent' => 0,
-            'vocabulary' => 'vocabulary_8',
-          ),
-          '3' => array(
-            'parent' => 0,
-            'vocabulary' => 'vocabulary_7',
-          ),
-        ),
-        'required' => FALSE,
-      ),
-      'translatable' => '0',
-      'type' => 'taxonomy_term_reference',
-    ),
-    'field_instance' => array(
-      'bundle' => 'autobiography',
-      'default_value' => NULL,
-      'deleted' => '0',
-      'description' => 'Debris left over after upgrade from Drupal 6',
-      'display' => array(
-        'default' => array(
-          'label' => 'above',
-          'module' => 'taxonomy',
-          'settings' => array(),
-          'type' => 'taxonomy_term_reference_link',
-          'weight' => 10,
-        ),
-        'full' => array(
-          'label' => 'above',
-          'settings' => array(),
-          'type' => 'hidden',
-          'weight' => 0,
-        ),
-        'print' => array(
-          'label' => 'above',
-          'settings' => array(),
-          'type' => 'hidden',
-          'weight' => 0,
-        ),
-        'rss' => array(
-          'label' => 'above',
-          'settings' => array(),
-          'type' => 'hidden',
-          'weight' => 0,
-        ),
-        'search_index' => array(
-          'label' => 'above',
-          'settings' => array(),
-          'type' => 'hidden',
-          'weight' => 0,
-        ),
-        'search_result' => array(
-          'label' => 'above',
-          'settings' => array(),
-          'type' => 'hidden',
-          'weight' => 0,
-        ),
-        'teaser' => array(
-          'label' => 'above',
-          'module' => 'taxonomy',
-          'settings' => array(),
-          'type' => 'taxonomy_term_reference_link',
-          'weight' => 10,
-        ),
-      ),
-      'entity_type' => 'node',
-      'field_name' => 'taxonomyextra',
-      'label' => 'Taxonomy upgrade extras',
-      'settings' => array(),
-      'widget' => array(
-        'module' => 'taxonomy',
-        'settings' => array(
-          'autocomplete_path' => 'taxonomy/autocomplete',
-          'size' => 60,
-        ),
-        'type' => 'taxonomy_autocomplete',
-        'weight' => 0,
-      ),
     ),
   );
 

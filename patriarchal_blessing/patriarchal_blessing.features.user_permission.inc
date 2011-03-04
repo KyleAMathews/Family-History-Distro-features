@@ -9,10 +9,7 @@ function patriarchal_blessing_user_default_permissions() {
   // Exported permission: create patriarchal_blessing content
   $permissions['create patriarchal_blessing content'] = array(
     'name' => 'create patriarchal_blessing content',
-    'roles' => array(
-      '0' => 'admin',
-      '1' => 'can add and edit pages',
-    ),
+    'roles' => array(),
   );
 
   // Exported permission: delete any patriarchal_blessing content
@@ -30,19 +27,13 @@ function patriarchal_blessing_user_default_permissions() {
   // Exported permission: edit any patriarchal_blessing content
   $permissions['edit any patriarchal_blessing content'] = array(
     'name' => 'edit any patriarchal_blessing content',
-    'roles' => array(
-      '0' => 'admin',
-      '1' => 'can add and edit pages',
-    ),
+    'roles' => array(),
   );
 
   // Exported permission: edit own patriarchal_blessing content
   $permissions['edit own patriarchal_blessing content'] = array(
     'name' => 'edit own patriarchal_blessing content',
-    'roles' => array(
-      '0' => 'admin',
-      '1' => 'can add and edit pages',
-    ),
+    'roles' => array(),
   );
 
   return $permissions;

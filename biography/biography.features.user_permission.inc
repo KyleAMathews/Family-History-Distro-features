@@ -9,10 +9,7 @@ function biography_user_default_permissions() {
   // Exported permission: create biography content
   $permissions['create biography content'] = array(
     'name' => 'create biography content',
-    'roles' => array(
-      '0' => 'admin',
-      '1' => 'can add and edit pages',
-    ),
+    'roles' => array(),
   );
 
   // Exported permission: delete any biography content
@@ -30,19 +27,13 @@ function biography_user_default_permissions() {
   // Exported permission: edit any biography content
   $permissions['edit any biography content'] = array(
     'name' => 'edit any biography content',
-    'roles' => array(
-      '0' => 'admin',
-      '1' => 'can add and edit pages',
-    ),
+    'roles' => array(),
   );
 
   // Exported permission: edit own biography content
   $permissions['edit own biography content'] = array(
     'name' => 'edit own biography content',
-    'roles' => array(
-      '0' => 'admin',
-      '1' => 'can add and edit pages',
-    ),
+    'roles' => array(),
   );
 
   return $permissions;

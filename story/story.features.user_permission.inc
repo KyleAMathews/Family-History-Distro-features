@@ -9,10 +9,7 @@ function story_user_default_permissions() {
   // Exported permission: create story content
   $permissions['create story content'] = array(
     'name' => 'create story content',
-    'roles' => array(
-      '0' => 'admin',
-      '1' => 'can add and edit pages',
-    ),
+    'roles' => array(),
   );
 
   // Exported permission: delete any story content
@@ -30,19 +27,13 @@ function story_user_default_permissions() {
   // Exported permission: edit any story content
   $permissions['edit any story content'] = array(
     'name' => 'edit any story content',
-    'roles' => array(
-      '0' => 'admin',
-      '1' => 'can add and edit pages',
-    ),
+    'roles' => array(),
   );
 
   // Exported permission: edit own story content
   $permissions['edit own story content'] = array(
     'name' => 'edit own story content',
-    'roles' => array(
-      '0' => 'admin',
-      '1' => 'can add and edit pages',
-    ),
+    'roles' => array(),
   );
 
   return $permissions;

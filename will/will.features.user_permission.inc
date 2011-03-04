@@ -9,10 +9,7 @@ function will_user_default_permissions() {
   // Exported permission: create will content
   $permissions['create will content'] = array(
     'name' => 'create will content',
-    'roles' => array(
-      '0' => 'admin',
-      '1' => 'can add and edit pages',
-    ),
+    'roles' => array(),
   );
 
   // Exported permission: delete any will content
@@ -30,19 +27,13 @@ function will_user_default_permissions() {
   // Exported permission: edit any will content
   $permissions['edit any will content'] = array(
     'name' => 'edit any will content',
-    'roles' => array(
-      '0' => 'admin',
-      '1' => 'can add and edit pages',
-    ),
+    'roles' => array(),
   );
 
   // Exported permission: edit own will content
   $permissions['edit own will content'] = array(
     'name' => 'edit own will content',
-    'roles' => array(
-      '0' => 'admin',
-      '1' => 'can add and edit pages',
-    ),
+    'roles' => array(),
   );
 
   return $permissions;

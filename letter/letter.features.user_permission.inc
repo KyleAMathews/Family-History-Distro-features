@@ -9,10 +9,7 @@ function letter_user_default_permissions() {
   // Exported permission: create letter content
   $permissions['create letter content'] = array(
     'name' => 'create letter content',
-    'roles' => array(
-      '0' => 'admin',
-      '1' => 'can add and edit pages',
-    ),
+    'roles' => array(),
   );
 
   // Exported permission: delete any letter content
@@ -30,19 +27,13 @@ function letter_user_default_permissions() {
   // Exported permission: edit any letter content
   $permissions['edit any letter content'] = array(
     'name' => 'edit any letter content',
-    'roles' => array(
-      '0' => 'admin',
-      '1' => 'can add and edit pages',
-    ),
+    'roles' => array(),
   );
 
   // Exported permission: edit own letter content
   $permissions['edit own letter content'] = array(
     'name' => 'edit own letter content',
-    'roles' => array(
-      '0' => 'admin',
-      '1' => 'can add and edit pages',
-    ),
+    'roles' => array(),
   );
 
   return $permissions;

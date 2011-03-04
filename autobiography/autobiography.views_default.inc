@@ -12,10 +12,12 @@ function autobiography_views_default_views() {
   $view->description = 'Lists autobiographies';
   $view->tag = 'content_type';
   $view->base_table = 'node';
+  $view->human_name = '';
+  $view->core = 0;
   $view->api_version = '3.0-alpha1';
   $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
-  
-/* Display: Defaults */
+
+  /* Display: Defaults */
   $handler = $view->new_display('default', 'Defaults', 'default');
   $handler->display->display_options['title'] = 'Autobiographies';
   $handler->display->display_options['access']['type'] = 'perm';
@@ -41,8 +43,8 @@ function autobiography_views_default_views() {
   $handler->display->display_options['filters']['type']['value'] = array(
     'autobiography' => 'autobiography',
   );
-  
-/* Display: Page */
+
+  /* Display: Page */
   $handler = $view->new_display('page', 'Page', 'page_1');
   $handler->display->display_options['path'] = 'autobiographies';
   $handler->display->display_options['menu']['type'] = 'normal';
@@ -50,6 +52,20 @@ function autobiography_views_default_views() {
   $handler->display->display_options['menu']['description'] = 'Listing of all Biographies';
   $handler->display->display_options['menu']['weight'] = '0';
   $handler->display->display_options['menu']['name'] = 'main-menu';
+  $translatables['autobiography'] = array(
+    t('Defaults'),
+    t('Autobiographies'),
+    t('more'),
+    t('Apply'),
+    t('Reset'),
+    t('Sort By'),
+    t('Asc'),
+    t('Desc'),
+    t('Items per page'),
+    t('- All -'),
+    t('Offset'),
+    t('Page'),
+  );
 
   $views[$view->name] = $view;
 

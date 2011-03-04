@@ -9,10 +9,7 @@ function obituary_user_default_permissions() {
   // Exported permission: create obituary content
   $permissions['create obituary content'] = array(
     'name' => 'create obituary content',
-    'roles' => array(
-      '0' => 'admin',
-      '1' => 'can add and edit pages',
-    ),
+    'roles' => array(),
   );
 
   // Exported permission: delete any obituary content
@@ -30,19 +27,13 @@ function obituary_user_default_permissions() {
   // Exported permission: edit any obituary content
   $permissions['edit any obituary content'] = array(
     'name' => 'edit any obituary content',
-    'roles' => array(
-      '0' => 'admin',
-      '1' => 'can add and edit pages',
-    ),
+    'roles' => array(),
   );
 
   // Exported permission: edit own obituary content
   $permissions['edit own obituary content'] = array(
     'name' => 'edit own obituary content',
-    'roles' => array(
-      '0' => 'admin',
-      '1' => 'can add and edit pages',
-    ),
+    'roles' => array(),
   );
 
   return $permissions;

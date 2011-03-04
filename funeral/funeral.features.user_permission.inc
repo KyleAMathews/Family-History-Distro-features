@@ -9,10 +9,7 @@ function funeral_user_default_permissions() {
   // Exported permission: create funeral content
   $permissions['create funeral content'] = array(
     'name' => 'create funeral content',
-    'roles' => array(
-      '0' => 'admin',
-      '1' => 'can add and edit pages',
-    ),
+    'roles' => array(),
   );
 
   // Exported permission: delete any funeral content
@@ -30,19 +27,13 @@ function funeral_user_default_permissions() {
   // Exported permission: edit any funeral content
   $permissions['edit any funeral content'] = array(
     'name' => 'edit any funeral content',
-    'roles' => array(
-      '0' => 'admin',
-      '1' => 'can add and edit pages',
-    ),
+    'roles' => array(),
   );
 
   // Exported permission: edit own funeral content
   $permissions['edit own funeral content'] = array(
     'name' => 'edit own funeral content',
-    'roles' => array(
-      '0' => 'admin',
-      '1' => 'can add and edit pages',
-    ),
+    'roles' => array(),
   );
 
   return $permissions;

@@ -94,6 +94,7 @@ function journal_field_default_fields() {
       'settings' => array(
         'display_summary' => TRUE,
         'text_processing' => 1,
+        'user_register_form' => FALSE,
       ),
       'widget' => array(
         'module' => 'text',
@@ -200,6 +201,7 @@ function journal_field_default_fields() {
         'file_directory' => '',
         'file_extensions' => 'jpg jpeg gif png txt html doc xls pdf ppt pps odt ods odp',
         'max_filesize' => '7 MB',
+        'user_register_form' => FALSE,
       ),
       'widget' => array(
         'module' => 'file',
@@ -210,178 +212,6 @@ function journal_field_default_fields() {
         'weight' => '1',
       ),
       'widget_type' => 'file_generic',
-    ),
-  );
-
-  // Exported field: 'node-journal-taxonomy_vocabulary_2'
-  $fields['node-journal-taxonomy_vocabulary_2'] = array(
-    'field_config' => array(
-      'active' => '1',
-      'cardinality' => '-1',
-      'deleted' => '0',
-      'entity_types' => array(),
-      'field_name' => 'taxonomy_vocabulary_2',
-      'indexes' => array(),
-      'module' => 'taxonomy',
-      'settings' => array(
-        'allowed_values' => array(
-          '0' => array(
-            'parent' => 0,
-            'vocabulary' => 'vocabulary_2',
-          ),
-        ),
-        'required' => TRUE,
-      ),
-      'translatable' => '0',
-      'type' => 'taxonomy_term_reference',
-    ),
-    'field_instance' => array(
-      'bundle' => 'journal',
-      'default_value' => NULL,
-      'deleted' => '0',
-      'description' => '',
-      'display' => array(
-        'default' => array(
-          'label' => 'above',
-          'module' => 'taxonomy',
-          'settings' => array(),
-          'type' => 'taxonomy_term_reference_link',
-          'weight' => 10,
-        ),
-        'full' => array(
-          'label' => 'above',
-          'settings' => array(),
-          'type' => 'hidden',
-          'weight' => 0,
-        ),
-        'print' => array(
-          'label' => 'above',
-          'settings' => array(),
-          'type' => 'hidden',
-          'weight' => 0,
-        ),
-        'rss' => array(
-          'label' => 'above',
-          'settings' => array(),
-          'type' => 'hidden',
-          'weight' => 0,
-        ),
-        'search_index' => array(
-          'label' => 'above',
-          'settings' => array(),
-          'type' => 'hidden',
-          'weight' => 0,
-        ),
-        'search_result' => array(
-          'label' => 'above',
-          'settings' => array(),
-          'type' => 'hidden',
-          'weight' => 0,
-        ),
-        'teaser' => array(
-          'label' => 'above',
-          'module' => 'taxonomy',
-          'settings' => array(),
-          'type' => 'taxonomy_term_reference_link',
-          'weight' => 10,
-        ),
-      ),
-      'entity_type' => 'node',
-      'field_name' => 'taxonomy_vocabulary_2',
-      'label' => 'Family',
-      'settings' => array(),
-      'widget' => array(
-        'module' => 'options',
-        'settings' => array(),
-        'type' => 'options_select',
-        'weight' => 0,
-      ),
-    ),
-  );
-
-  // Exported field: 'node-journal-taxonomy_vocabulary_7'
-  $fields['node-journal-taxonomy_vocabulary_7'] = array(
-    'field_config' => array(
-      'active' => '1',
-      'cardinality' => '1',
-      'deleted' => '0',
-      'entity_types' => array(),
-      'field_name' => 'taxonomy_vocabulary_7',
-      'indexes' => array(),
-      'module' => 'taxonomy',
-      'settings' => array(
-        'allowed_values' => array(
-          '0' => array(
-            'parent' => 0,
-            'vocabulary' => 'vocabulary_7',
-          ),
-        ),
-        'required' => TRUE,
-      ),
-      'translatable' => '0',
-      'type' => 'taxonomy_term_reference',
-    ),
-    'field_instance' => array(
-      'bundle' => 'journal',
-      'default_value' => NULL,
-      'deleted' => '0',
-      'description' => '',
-      'display' => array(
-        'default' => array(
-          'label' => 'above',
-          'module' => 'taxonomy',
-          'settings' => array(),
-          'type' => 'taxonomy_term_reference_link',
-          'weight' => 10,
-        ),
-        'full' => array(
-          'label' => 'above',
-          'settings' => array(),
-          'type' => 'hidden',
-          'weight' => 0,
-        ),
-        'print' => array(
-          'label' => 'above',
-          'settings' => array(),
-          'type' => 'hidden',
-          'weight' => 0,
-        ),
-        'rss' => array(
-          'label' => 'above',
-          'settings' => array(),
-          'type' => 'hidden',
-          'weight' => 0,
-        ),
-        'search_index' => array(
-          'label' => 'above',
-          'settings' => array(),
-          'type' => 'hidden',
-          'weight' => 0,
-        ),
-        'search_result' => array(
-          'label' => 'above',
-          'settings' => array(),
-          'type' => 'hidden',
-          'weight' => 0,
-        ),
-        'teaser' => array(
-          'label' => 'above',
-          'module' => 'taxonomy',
-          'settings' => array(),
-          'type' => 'taxonomy_term_reference_link',
-          'weight' => 10,
-        ),
-      ),
-      'entity_type' => 'node',
-      'field_name' => 'taxonomy_vocabulary_7',
-      'label' => 'private',
-      'settings' => array(),
-      'widget' => array(
-        'module' => 'options',
-        'settings' => array(),
-        'type' => 'options_select',
-        'weight' => 0,
-      ),
     ),
   );
 
@@ -473,6 +303,7 @@ function journal_field_default_fields() {
       'settings' => array(
         'display_summary' => TRUE,
         'text_processing' => 1,
+        'user_register_form' => FALSE,
       ),
       'widget' => array(
         'module' => 'text',
@@ -579,6 +410,7 @@ function journal_field_default_fields() {
         'file_directory' => '',
         'file_extensions' => 'jpg jpeg gif png txt html doc xls pdf ppt pps odt ods odp',
         'max_filesize' => '7 MB',
+        'user_register_form' => FALSE,
       ),
       'widget' => array(
         'module' => 'file',
@@ -589,178 +421,6 @@ function journal_field_default_fields() {
         'weight' => '1',
       ),
       'widget_type' => 'file_generic',
-    ),
-  );
-
-  // Exported field: 'node-journal_entry-taxonomy_vocabulary_2'
-  $fields['node-journal_entry-taxonomy_vocabulary_2'] = array(
-    'field_config' => array(
-      'active' => '1',
-      'cardinality' => '-1',
-      'deleted' => '0',
-      'entity_types' => array(),
-      'field_name' => 'taxonomy_vocabulary_2',
-      'indexes' => array(),
-      'module' => 'taxonomy',
-      'settings' => array(
-        'allowed_values' => array(
-          '0' => array(
-            'parent' => 0,
-            'vocabulary' => 'vocabulary_2',
-          ),
-        ),
-        'required' => TRUE,
-      ),
-      'translatable' => '0',
-      'type' => 'taxonomy_term_reference',
-    ),
-    'field_instance' => array(
-      'bundle' => 'journal_entry',
-      'default_value' => NULL,
-      'deleted' => '0',
-      'description' => '',
-      'display' => array(
-        'default' => array(
-          'label' => 'above',
-          'module' => 'taxonomy',
-          'settings' => array(),
-          'type' => 'taxonomy_term_reference_link',
-          'weight' => 10,
-        ),
-        'full' => array(
-          'label' => 'above',
-          'settings' => array(),
-          'type' => 'hidden',
-          'weight' => 0,
-        ),
-        'print' => array(
-          'label' => 'above',
-          'settings' => array(),
-          'type' => 'hidden',
-          'weight' => 0,
-        ),
-        'rss' => array(
-          'label' => 'above',
-          'settings' => array(),
-          'type' => 'hidden',
-          'weight' => 0,
-        ),
-        'search_index' => array(
-          'label' => 'above',
-          'settings' => array(),
-          'type' => 'hidden',
-          'weight' => 0,
-        ),
-        'search_result' => array(
-          'label' => 'above',
-          'settings' => array(),
-          'type' => 'hidden',
-          'weight' => 0,
-        ),
-        'teaser' => array(
-          'label' => 'above',
-          'module' => 'taxonomy',
-          'settings' => array(),
-          'type' => 'taxonomy_term_reference_link',
-          'weight' => 10,
-        ),
-      ),
-      'entity_type' => 'node',
-      'field_name' => 'taxonomy_vocabulary_2',
-      'label' => 'Family',
-      'settings' => array(),
-      'widget' => array(
-        'module' => 'options',
-        'settings' => array(),
-        'type' => 'options_select',
-        'weight' => 0,
-      ),
-    ),
-  );
-
-  // Exported field: 'node-journal_entry-taxonomy_vocabulary_7'
-  $fields['node-journal_entry-taxonomy_vocabulary_7'] = array(
-    'field_config' => array(
-      'active' => '1',
-      'cardinality' => '1',
-      'deleted' => '0',
-      'entity_types' => array(),
-      'field_name' => 'taxonomy_vocabulary_7',
-      'indexes' => array(),
-      'module' => 'taxonomy',
-      'settings' => array(
-        'allowed_values' => array(
-          '0' => array(
-            'parent' => 0,
-            'vocabulary' => 'vocabulary_7',
-          ),
-        ),
-        'required' => TRUE,
-      ),
-      'translatable' => '0',
-      'type' => 'taxonomy_term_reference',
-    ),
-    'field_instance' => array(
-      'bundle' => 'journal_entry',
-      'default_value' => NULL,
-      'deleted' => '0',
-      'description' => '',
-      'display' => array(
-        'default' => array(
-          'label' => 'above',
-          'module' => 'taxonomy',
-          'settings' => array(),
-          'type' => 'taxonomy_term_reference_link',
-          'weight' => 10,
-        ),
-        'full' => array(
-          'label' => 'above',
-          'settings' => array(),
-          'type' => 'hidden',
-          'weight' => 0,
-        ),
-        'print' => array(
-          'label' => 'above',
-          'settings' => array(),
-          'type' => 'hidden',
-          'weight' => 0,
-        ),
-        'rss' => array(
-          'label' => 'above',
-          'settings' => array(),
-          'type' => 'hidden',
-          'weight' => 0,
-        ),
-        'search_index' => array(
-          'label' => 'above',
-          'settings' => array(),
-          'type' => 'hidden',
-          'weight' => 0,
-        ),
-        'search_result' => array(
-          'label' => 'above',
-          'settings' => array(),
-          'type' => 'hidden',
-          'weight' => 0,
-        ),
-        'teaser' => array(
-          'label' => 'above',
-          'module' => 'taxonomy',
-          'settings' => array(),
-          'type' => 'taxonomy_term_reference_link',
-          'weight' => 10,
-        ),
-      ),
-      'entity_type' => 'node',
-      'field_name' => 'taxonomy_vocabulary_7',
-      'label' => 'private',
-      'settings' => array(),
-      'widget' => array(
-        'module' => 'options',
-        'settings' => array(),
-        'type' => 'options_select',
-        'weight' => 0,
-      ),
     ),
   );
 
