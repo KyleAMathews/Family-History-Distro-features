@@ -1,0 +1,3 @@
+<?php
+
+include_once('family_history_distro_core.features.inc');

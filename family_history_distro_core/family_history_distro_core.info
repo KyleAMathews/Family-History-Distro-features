@@ -1,0 +1,7 @@
+core = "7.x"
+dependencies[] = "strongarm"
+description = "Store core configuration"
+features[ctools][] = "strongarm:strongarm:1"
+features[variable][] = "google_fonts_enabled_fonts"
+name = "Family History Distro Core"
+package = "Features"
