@@ -1,4 +1,8 @@
 <?php
+/**
+ * @file
+ * story.context.inc
+ */
 
 /**
  * Implementation of hook_context_default_contexts().

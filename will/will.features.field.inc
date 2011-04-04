@@ -1,4 +1,8 @@
 <?php
+/**
+ * @file
+ * will.features.field.inc
+ */
 
 /**
  * Implementation of hook_field_default_fields().
@@ -13,7 +17,7 @@ function will_field_default_fields() {
       'cardinality' => '1',
       'deleted' => '0',
       'entity_types' => array(
-        '0' => 'node',
+        0 => 'node',
       ),
       'field_name' => 'body',
       'foreign keys' => array(
@@ -26,7 +30,7 @@ function will_field_default_fields() {
       ),
       'indexes' => array(
         'format' => array(
-          '0' => 'format',
+          0 => 'format',
         ),
       ),
       'module' => 'text',
@@ -127,7 +131,7 @@ function will_field_default_fields() {
       ),
       'indexes' => array(
         'format' => array(
-          '0' => 'format',
+          0 => 'format',
         ),
       ),
       'module' => 'text',
@@ -195,7 +199,7 @@ function will_field_default_fields() {
       ),
       'indexes' => array(
         'fid' => array(
-          '0' => 'fid',
+          0 => 'fid',
         ),
       ),
       'module' => 'file',
@@ -282,6 +286,13 @@ function will_field_default_fields() {
       'widget_type' => 'file_generic',
     ),
   );
+
+  // Translatables
+  // Included for use with string extractors like potx.
+  t('Body');
+  t('Enter the source from which the will was taken from, e.g. family records, a book, a genealogical association, government records, etc. ');
+  t('File attachments');
+  t('Source');
 
   return $fields;
 }

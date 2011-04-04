@@ -1,4 +1,8 @@
 <?php
+/**
+ * @file
+ * autobiography.strongarm.inc
+ */
 
 /**
  * Implementation of hook_strongarm().

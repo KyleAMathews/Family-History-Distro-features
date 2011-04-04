@@ -1,4 +1,8 @@
 <?php
+/**
+ * @file
+ * letter.strongarm.inc
+ */
 
 /**
  * Implementation of hook_strongarm().

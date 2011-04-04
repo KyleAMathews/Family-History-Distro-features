@@ -1,4 +1,8 @@
 <?php
+/**
+ * @file
+ * story.strongarm.inc
+ */
 
 /**
  * Implementation of hook_strongarm().

@@ -1,12 +1,15 @@
 <?php
+/**
+ * @file
+ * patriarchal_blessing.views_default.inc
+ */
 
 /**
  * Implementation of hook_views_default_views().
  */
 function patriarchal_blessing_views_default_views() {
-  $views = array();
+  $export = array();
 
-  // Exported view: patriarchal_blessings
   $view = new view;
   $view->name = 'patriarchal_blessings';
   $view->description = 'Lists patriarchal blessings';
@@ -35,11 +38,11 @@ function patriarchal_blessing_views_default_views() {
   $handler->display->display_options['row_plugin'] = 'node';
   $handler->display->display_options['row_options']['links'] = 1;
   $handler->display->display_options['row_options']['comments'] = 0;
-  /* Filter: Node: Published or admin */
+  /* Filter criterion: Content: Published or admin */
   $handler->display->display_options['filters']['status_extra']['id'] = 'status_extra';
   $handler->display->display_options['filters']['status_extra']['table'] = 'node';
   $handler->display->display_options['filters']['status_extra']['field'] = 'status_extra';
-  /* Filter: Node: Type */
+  /* Filter criterion: Content: Type */
   $handler->display->display_options['filters']['type']['id'] = 'type';
   $handler->display->display_options['filters']['type']['table'] = 'node';
   $handler->display->display_options['filters']['type']['field'] = 'type';
@@ -54,14 +57,14 @@ function patriarchal_blessing_views_default_views() {
   $handler->display->display_options['menu']['title'] = 'Patriarchal blessings';
   $handler->display->display_options['menu']['description'] = 'Listing of all patriarchal blessings';
   $handler->display->display_options['menu']['weight'] = '0';
-  $handler->display->display_options['menu']['name'] = 'main-menu';
+  $handler->display->display_options['menu']['name'] = 'menu-content-types';
   $translatables['patriarchal_blessings'] = array(
     t('Defaults'),
     t('Patriarchal blessings'),
     t('more'),
     t('Apply'),
     t('Reset'),
-    t('Sort By'),
+    t('Sort by'),
     t('Asc'),
     t('Desc'),
     t('Items per page'),
@@ -69,8 +72,7 @@ function patriarchal_blessing_views_default_views() {
     t('Offset'),
     t('Page'),
   );
+  $export['patriarchal_blessings'] = $view;
 
-  $views[$view->name] = $view;
-
-  return $views;
+  return $export;
 }

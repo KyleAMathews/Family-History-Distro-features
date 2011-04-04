@@ -1,4 +1,8 @@
 <?php
+/**
+ * @file
+ * biography.strongarm.inc
+ */
 
 /**
  * Implementation of hook_strongarm().

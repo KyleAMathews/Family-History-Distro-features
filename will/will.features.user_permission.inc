@@ -1,4 +1,8 @@
 <?php
+/**
+ * @file
+ * will.features.user_permission.inc
+ */
 
 /**
  * Implementation of hook_user_default_permissions().

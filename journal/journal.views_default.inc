@@ -1,12 +1,15 @@
 <?php
+/**
+ * @file
+ * journal.views_default.inc
+ */
 
 /**
  * Implementation of hook_views_default_views().
  */
 function journal_views_default_views() {
-  $views = array();
+  $export = array();
 
-  // Exported view: Journal
   $view = new view;
   $view->name = 'Journal';
   $view->description = 'Lists journals';
@@ -32,11 +35,11 @@ function journal_views_default_views() {
   $handler->display->display_options['row_plugin'] = 'node';
   $handler->display->display_options['row_options']['links'] = 1;
   $handler->display->display_options['row_options']['comments'] = 0;
-  /* Filter: Node: Published or admin */
+  /* Filter criterion: Content: Published or admin */
   $handler->display->display_options['filters']['status_extra']['id'] = 'status_extra';
   $handler->display->display_options['filters']['status_extra']['table'] = 'node';
   $handler->display->display_options['filters']['status_extra']['field'] = 'status_extra';
-  /* Filter: Node: Type */
+  /* Filter criterion: Content: Type */
   $handler->display->display_options['filters']['type']['id'] = 'type';
   $handler->display->display_options['filters']['type']['table'] = 'node';
   $handler->display->display_options['filters']['type']['field'] = 'type';
@@ -52,14 +55,14 @@ function journal_views_default_views() {
   $handler->display->display_options['menu']['title'] = 'Journals';
   $handler->display->display_options['menu']['description'] = 'Listing of all Journals';
   $handler->display->display_options['menu']['weight'] = '0';
-  $handler->display->display_options['menu']['name'] = 'main-menu';
+  $handler->display->display_options['menu']['name'] = 'menu-content-types';
   $translatables['Journal'] = array(
     t('Defaults'),
     t('Journals'),
     t('more'),
     t('Apply'),
     t('Reset'),
-    t('Sort By'),
+    t('Sort by'),
     t('Asc'),
     t('Desc'),
     t('Items per page'),
@@ -67,8 +70,7 @@ function journal_views_default_views() {
     t('Offset'),
     t('Page'),
   );
+  $export['Journal'] = $view;
 
-  $views[$view->name] = $view;
-
-  return $views;
+  return $export;
 }

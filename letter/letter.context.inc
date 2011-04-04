@@ -1,4 +1,8 @@
 <?php
+/**
+ * @file
+ * letter.context.inc
+ */
 
 /**
  * Implementation of hook_context_default_contexts().

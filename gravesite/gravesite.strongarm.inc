@@ -1,4 +1,8 @@
 <?php
+/**
+ * @file
+ * gravesite.strongarm.inc
+ */
 
 /**
  * Implementation of hook_strongarm().

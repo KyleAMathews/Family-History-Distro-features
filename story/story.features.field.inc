@@ -1,4 +1,8 @@
 <?php
+/**
+ * @file
+ * story.features.field.inc
+ */
 
 /**
  * Implementation of hook_field_default_fields().
@@ -13,7 +17,7 @@ function story_field_default_fields() {
       'cardinality' => '1',
       'deleted' => '0',
       'entity_types' => array(
-        '0' => 'node',
+        0 => 'node',
       ),
       'field_name' => 'body',
       'foreign keys' => array(
@@ -26,7 +30,7 @@ function story_field_default_fields() {
       ),
       'indexes' => array(
         'format' => array(
-          '0' => 'format',
+          0 => 'format',
         ),
       ),
       'module' => 'text',
@@ -127,7 +131,7 @@ function story_field_default_fields() {
       ),
       'indexes' => array(
         'format' => array(
-          '0' => 'format',
+          0 => 'format',
         ),
       ),
       'module' => 'text',
@@ -276,7 +280,7 @@ function story_field_default_fields() {
       ),
       'indexes' => array(
         'format' => array(
-          '0' => 'format',
+          0 => 'format',
         ),
       ),
       'module' => 'text',
@@ -344,7 +348,7 @@ function story_field_default_fields() {
       ),
       'indexes' => array(
         'fid' => array(
-          '0' => 'fid',
+          0 => 'fid',
         ),
       ),
       'module' => 'file',
@@ -431,6 +435,17 @@ function story_field_default_fields() {
       'widget_type' => 'file_generic',
     ),
   );
+
+  // Translatables
+  // Included for use with string extractors like potx.
+  t('Author or contributor');
+  t('Body');
+  t('Date of story');
+  t('Enter the names, one per line, of those that helped write or contributed to the writing of this story.');
+  t('Enter the source from which the story was taken from, e.g. family records, a book, a genealogical association, etc. ');
+  t('File attachments');
+  t('Some stories occur over a span of many years or decades. In these cases, try to pick a date roughly in the middle of when the story occurs.');
+  t('Source');
 
   return $fields;
 }

@@ -1,4 +1,8 @@
 <?php
+/**
+ * @file
+ * patriarchal_blessing.features.field.inc
+ */
 
 /**
  * Implementation of hook_field_default_fields().
@@ -13,7 +17,7 @@ function patriarchal_blessing_field_default_fields() {
       'cardinality' => '1',
       'deleted' => '0',
       'entity_types' => array(
-        '0' => 'node',
+        0 => 'node',
       ),
       'field_name' => 'body',
       'foreign keys' => array(
@@ -26,7 +30,7 @@ function patriarchal_blessing_field_default_fields() {
       ),
       'indexes' => array(
         'format' => array(
-          '0' => 'format',
+          0 => 'format',
         ),
       ),
       'module' => 'text',
@@ -208,7 +212,7 @@ function patriarchal_blessing_field_default_fields() {
       ),
       'indexes' => array(
         'format' => array(
-          '0' => 'format',
+          0 => 'format',
         ),
       ),
       'module' => 'text',
@@ -276,7 +280,7 @@ function patriarchal_blessing_field_default_fields() {
       ),
       'indexes' => array(
         'fid' => array(
-          '0' => 'fid',
+          0 => 'fid',
         ),
       ),
       'module' => 'file',
@@ -363,6 +367,14 @@ function patriarchal_blessing_field_default_fields() {
       'widget_type' => 'file_generic',
     ),
   );
+
+  // Translatables
+  // Included for use with string extractors like potx.
+  t('Body');
+  t('Date patriarchal blessing received');
+  t('Enter the source from which the Patriarchal blessing was taken, e.g. family records, a book, LDS Church archives, etc. ');
+  t('File attachments');
+  t('Source');
 
   return $fields;
 }

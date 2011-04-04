@@ -1,4 +1,8 @@
 <?php
+/**
+ * @file
+ * patriarchal_blessing.strongarm.inc
+ */
 
 /**
  * Implementation of hook_strongarm().
