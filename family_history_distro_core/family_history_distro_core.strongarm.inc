@@ -1,4 +1,8 @@
 <?php
+/**
+ * @file
+ * family_history_distro_core.strongarm.inc
+ */
 
 /**
  * Implementation of hook_strongarm().

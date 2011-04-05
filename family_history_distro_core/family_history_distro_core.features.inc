@@ -1,4 +1,8 @@
 <?php
+/**
+ * @file
+ * family_history_distro_core.features.inc
+ */
 
 /**
  * Implementation of hook_ctools_plugin_api().
