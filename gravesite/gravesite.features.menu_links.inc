@@ -1,21 +1,21 @@
 <?php
 /**
  * @file
- * biography.features.menu_links.inc
+ * gravesite.features.menu_links.inc
  */
 
 /**
  * Implementation of hook_menu_default_menu_links().
  */
-function biography_menu_default_menu_links() {
+function gravesite_menu_default_menu_links() {
   $menu_links = array();
 
-  // Exported menu link: menu-content-types:biographies
-  $menu_links['menu-content-types:biographies'] = array(
+  // Exported menu link: menu-content-types:gravesites
+  $menu_links['menu-content-types:gravesites'] = array(
     'menu_name' => 'menu-content-types',
-    'link_path' => 'biographies',
-    'router_path' => 'biographies',
-    'link_title' => 'Biographies',
+    'link_path' => 'gravesites',
+    'router_path' => 'gravesites',
+    'link_title' => 'Gravesites',
     'options' => array(
       'attributes' => array(
         'title' => '',
@@ -30,7 +30,7 @@ function biography_menu_default_menu_links() {
   );
   // Translatables
   // Included for use with string extractors like potx.
-  t('Biographies');
+  t('Gravesites');
 
 
   return $menu_links;

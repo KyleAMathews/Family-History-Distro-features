@@ -1,4 +1,8 @@
 <?php
+/**
+ * @file
+ * autobiography.features.menu_links.inc
+ */
 
 /**
  * Implementation of hook_menu_default_menu_links().
@@ -6,18 +10,18 @@
 function autobiography_menu_default_menu_links() {
   $menu_links = array();
 
-  // Exported menu link: main-menu:autobiographies
-  $menu_links['main-menu:autobiographies'] = array(
-    'menu_name' => 'main-menu',
+  // Exported menu link: menu-content-types:autobiographies
+  $menu_links['menu-content-types:autobiographies'] = array(
+    'menu_name' => 'menu-content-types',
     'link_path' => 'autobiographies',
     'router_path' => 'autobiographies',
     'link_title' => 'Autobiographies',
     'options' => array(
       'attributes' => array(
-        'title' => 'Listing of all Biographies',
+        'title' => '',
       ),
     ),
-    'module' => 'system',
+    'module' => 'menu',
     'hidden' => '0',
     'external' => '0',
     'has_children' => '0',

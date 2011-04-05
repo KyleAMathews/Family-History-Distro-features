@@ -1,4 +1,8 @@
 <?php
+/**
+ * @file
+ * will.features.menu_links.inc
+ */
 
 /**
  * Implementation of hook_menu_default_menu_links().
@@ -6,18 +10,18 @@
 function will_menu_default_menu_links() {
   $menu_links = array();
 
-  // Exported menu link: main-menu:wills
-  $menu_links['main-menu:wills'] = array(
-    'menu_name' => 'main-menu',
+  // Exported menu link: menu-content-types:wills
+  $menu_links['menu-content-types:wills'] = array(
+    'menu_name' => 'menu-content-types',
     'link_path' => 'wills',
     'router_path' => 'wills',
     'link_title' => 'Wills',
     'options' => array(
       'attributes' => array(
-        'title' => 'Listing of all Stories',
+        'title' => '',
       ),
     ),
-    'module' => 'system',
+    'module' => 'menu',
     'hidden' => '0',
     'external' => '0',
     'has_children' => '0',
