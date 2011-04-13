@@ -107,7 +107,7 @@ function biography_field_default_fields() {
           'summary_rows' => 5,
         ),
         'type' => 'text_textarea_with_summary',
-        'weight' => '2',
+        'weight' => '3',
       ),
       'widget_type' => 'text_textarea_with_summary',
     ),
@@ -176,7 +176,7 @@ function biography_field_default_fields() {
           'size' => '60',
         ),
         'type' => 'text_textfield',
-        'weight' => '3',
+        'weight' => '4',
       ),
     ),
   );
@@ -245,6 +245,72 @@ function biography_field_default_fields() {
         ),
         'type' => 'text_textfield',
         'weight' => '5',
+      ),
+    ),
+  );
+
+  // Exported field: 'node-biography-field_summary'
+  $fields['node-biography-field_summary'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_summary',
+      'foreign keys' => array(
+        'format' => array(
+          'columns' => array(
+            'format' => 'format',
+          ),
+          'table' => 'filter_format',
+        ),
+      ),
+      'indexes' => array(
+        'format' => array(
+          0 => 'format',
+        ),
+      ),
+      'module' => 'text',
+      'settings' => array(),
+      'translatable' => '1',
+      'type' => 'text_long',
+    ),
+    'field_instance' => array(
+      'bundle' => 'biography',
+      'default_value' => NULL,
+      'deleted' => '0',
+      'description' => 'Provide an optional summary of the biography. Adding a summary is especially helpful for long multi-part biographies.',
+      'display' => array(
+        'default' => array(
+          'label' => 'above',
+          'module' => 'text',
+          'settings' => array(),
+          'type' => 'text_default',
+          'weight' => 16,
+        ),
+        'teaser' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+      ),
+      'entity_type' => 'node',
+      'field_name' => 'field_summary',
+      'label' => 'Summary',
+      'required' => 0,
+      'settings' => array(
+        'text_processing' => '0',
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'text',
+        'settings' => array(
+          'rows' => '5',
+        ),
+        'type' => 'text_textarea',
+        'weight' => '2',
       ),
     ),
   );
@@ -362,7 +428,9 @@ function biography_field_default_fields() {
   t('Enter the source from which the biography was taken from, e.g. family records, a book, a genealogical association, etc. ');
   t('Enter, one per line, every person who helped write or contributed to this biography.');
   t('File attachments');
+  t('Provide an optional summary of the biography. Adding a summary is especially helpful for long multi-part biographies.');
   t('Source');
+  t('Summary');
 
   return $fields;
 }
