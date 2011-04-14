@@ -49,7 +49,7 @@ function gravesite_field_default_fields() {
           'module' => 'text',
           'settings' => array(),
           'type' => 'text_default',
-          'weight' => 12,
+          'weight' => '12',
         ),
         'full' => array(
           'label' => 'above',
@@ -151,10 +151,9 @@ function gravesite_field_default_fields() {
       'display' => array(
         'default' => array(
           'label' => 'above',
-          'module' => 'file',
           'settings' => array(),
-          'type' => 'file_default',
-          'weight' => 13,
+          'type' => 'hidden',
+          'weight' => '13',
         ),
         'full' => array(
           'label' => 'hidden',
