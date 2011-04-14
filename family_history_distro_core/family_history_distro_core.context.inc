@@ -72,9 +72,15 @@ function family_history_distro_core_context_default_contexts() {
   $context->reactions = array(
     'block' => array(
       'blocks' => array(
-        'search-form' => array(
-          'module' => 'search',
-          'delta' => 'form',
+        'system-main' => array(
+          'module' => 'system',
+          'delta' => 'main',
+          'region' => 'content',
+          'weight' => '-10',
+        ),
+        'menu-menu-content-types' => array(
+          'module' => 'menu',
+          'delta' => 'menu-content-types',
           'region' => 'header',
           'weight' => '-10',
         ),
@@ -84,9 +90,9 @@ function family_history_distro_core_context_default_contexts() {
           'region' => 'header',
           'weight' => '-10',
         ),
-        'menu-menu-content-types' => array(
-          'module' => 'menu',
-          'delta' => 'menu-content-types',
+        'search-form' => array(
+          'module' => 'search',
+          'delta' => 'form',
           'region' => 'header',
           'weight' => '-10',
         ),
