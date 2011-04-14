@@ -49,28 +49,28 @@ function obituary_strongarm() {
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'comment_form_location_obituary';
-  $strongarm->value = '1';
+  $strongarm->value = 1;
   $export['comment_form_location_obituary'] = $strongarm;
 
   $strongarm = new stdClass;
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'comment_obituary';
-  $strongarm->value = '2';
+  $strongarm->value = '1';
   $export['comment_obituary'] = $strongarm;
 
   $strongarm = new stdClass;
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'comment_preview_obituary';
-  $strongarm->value = 1;
+  $strongarm->value = '1';
   $export['comment_preview_obituary'] = $strongarm;
 
   $strongarm = new stdClass;
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'comment_subject_field_obituary';
-  $strongarm->value = '1';
+  $strongarm->value = 0;
   $export['comment_subject_field_obituary'] = $strongarm;
 
   $strongarm = new stdClass;
