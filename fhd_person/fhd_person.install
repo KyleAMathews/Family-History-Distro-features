@@ -1,0 +1,117 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the fhd_person module.
+ */
+
+/**
+ * Implement hook_install().
+ */
+function fhd_person_install() {
+  // Auto-create a field for the full name.
+  $field = array(
+    'field_name' => 'fhd_person_fullname',
+    'type' => 'text',
+    'cardinality' => 1,
+    'translatable' => FALSE,
+  );
+  field_create_field($field);
+
+  $instance = array(
+    'entity_type' => 'fhd_person',
+    'field_name' => 'fhd_person_fullname',
+    'bundle' => 'main',
+    'label' => 'Full name',
+    'description' => 'Specify your first and last name.',
+    'widget' => array(
+      'type' => 'text_textfield',
+      'weight' => 0,
+    ),
+  );
+  field_create_instance($instance);
+
+  // Auto-create a field for the birth date.
+  $field = array(
+    'field_name' => 'fhd_person_birth_date',
+    'type' => 'text',
+    'cardinality' => 1,
+    'translatable' => FALSE,
+  );
+  field_create_field($field);
+
+  $instance = array(
+    'entity_type' => 'fhd_person',
+    'field_name' => 'fhd_person_birth_date',
+    'bundle' => 'main',
+    'label' => 'Birth Date',
+    'description' => 'Specify the person\'s birth date.',
+    'widget' => array(
+      'type' => 'text_textfield',
+      'weight' => 0,
+    ),
+  );
+  field_create_instance($instance);
+  
+  // Auto-create a field for the birthplace.
+  $field = array(
+    'field_name' => 'fhd_person_birth_place',
+    'type' => 'text',
+    'cardinality' => 1,
+    'translatable' => FALSE,
+  );
+  field_create_field($field);
+
+  $instance = array(
+    'entity_type' => 'fhd_person',
+    'field_name' => 'fhd_person_birth_place',
+    'bundle' => 'main',
+    'label' => 'Birth place',
+    'description' => 'Specify the person\'s birth place',
+    'widget' => array(
+      'type' => 'text_textfield',
+      'weight' => 0,
+    ),
+  );
+  field_create_instance($instance);
+  
+}
+
+/**
+ * Implement hook_schema().
+ */
+function fhd_person_schema() {
+  $schema['fhd_person'] = array(
+    'description' => 'Stores fhd_person data.',
+    'fields' => array(
+      'pid' => array(
+        'type' => 'serial',
+        'not null' => TRUE,
+        'description' => 'Primary Key: Unique fhd_person item ID.',
+      ),
+      'name' => array(
+        'description' => 'The name of the fhd_person.',
+        'type' => 'varchar',
+        'length' => 128,
+      ),
+      'birth_date' => array(
+        'description' => 'The birthdate of the fhd_person.',
+        'type' => 'int',
+        'sortable' => TRUE,
+      ),
+      'birth_place' => array(
+        'description' => 'The birthplace of the person',
+        'type' => 'varchar',
+        'length' => 128,
+      ),
+      'family_search_id' => array(
+        'type' => 'varchar',
+        'length' => 128,
+        'description' => "The New Family Search ID",
+      ),
+    ),
+    'primary key' => array('pid'),
+  );
+
+  return $schema;
+}

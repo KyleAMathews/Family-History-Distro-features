@@ -1,0 +1,6 @@
+name = Person
+description = Provides a "person" entity for storing information pulled from the Family Search API
+core = 7.x
+files[] = fhd_person.module
+files[] = fhd_person.install
+dependencies[] = entity
