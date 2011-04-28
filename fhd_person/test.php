@@ -11,7 +11,7 @@ foreach ($persons as $person) {
     'name' => fixEncoding($person->Firstname . $person->Lastname),
     'birth_date' => strtotime($person->Birth['Date']),
     'birth_place' => utf8_encode($person->Birth['Place']),
-    'family_search_id' => $person->Identifier,
+    'gedcom_id' => $person->Identifier,
   );
   entity_save('fhd_person', $entity);
   mb_detect_encoding($bplace, "UTF-8") == "UTF-8" ? '' : $bplace = utf8_encode($bplace);
@@ -27,7 +27,7 @@ $entity = array(
   'name' => "Fred Flinstone",
   'birth_date' => 456210000,
   'birth_place' => 'Toledo, Oregon',
-  'family_search_id' => 'abc',
+  'gedcom_id' => 'abc',
 );
 //print_r(entity_save('fhd_person', $entity));
 

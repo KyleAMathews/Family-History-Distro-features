@@ -9,6 +9,7 @@
  * Implement hook_install().
  */
 function fhd_person_install() {
+  /** I don't think we actually need fields as we'll never actually edit this info on site
   // Auto-create a field for the full name.
   $field = array(
     'field_name' => 'fhd_person_fullname',
@@ -74,7 +75,7 @@ function fhd_person_install() {
     ),
   );
   field_create_instance($instance);
-  
+  **/
 }
 
 /**
@@ -104,10 +105,10 @@ function fhd_person_schema() {
         'type' => 'varchar',
         'length' => 128,
       ),
-      'family_search_id' => array(
+      'gedcom_id' => array(
         'type' => 'varchar',
         'length' => 128,
-        'description' => "The New Family Search ID",
+        'description' => "The Gedcom ID",
       ),
     ),
     'primary key' => array('pid'),

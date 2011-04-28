@@ -75,24 +75,24 @@ function fhd_person_views_default_views() {
   $handler->display->display_options['fields']['birth_place']['hide_empty'] = 0;
   $handler->display->display_options['fields']['birth_place']['empty_zero'] = 0;
   /* Field: Person: Family_search_id */
-  $handler->display->display_options['fields']['family_search_id']['id'] = 'family_search_id';
-  $handler->display->display_options['fields']['family_search_id']['table'] = 'fhd_person';
-  $handler->display->display_options['fields']['family_search_id']['field'] = 'family_search_id';
-  $handler->display->display_options['fields']['family_search_id']['alter']['alter_text'] = 0;
-  $handler->display->display_options['fields']['family_search_id']['alter']['make_link'] = 0;
-  $handler->display->display_options['fields']['family_search_id']['alter']['absolute'] = 0;
-  $handler->display->display_options['fields']['family_search_id']['alter']['external'] = 0;
-  $handler->display->display_options['fields']['family_search_id']['alter']['replace_spaces'] = 0;
-  $handler->display->display_options['fields']['family_search_id']['alter']['trim'] = 0;
-  $handler->display->display_options['fields']['family_search_id']['alter']['nl2br'] = 0;
-  $handler->display->display_options['fields']['family_search_id']['alter']['word_boundary'] = 1;
-  $handler->display->display_options['fields']['family_search_id']['alter']['ellipsis'] = 1;
-  $handler->display->display_options['fields']['family_search_id']['alter']['strip_tags'] = 0;
-  $handler->display->display_options['fields']['family_search_id']['alter']['html'] = 0;
-  $handler->display->display_options['fields']['family_search_id']['element_label_colon'] = 1;
-  $handler->display->display_options['fields']['family_search_id']['element_default_classes'] = 1;
-  $handler->display->display_options['fields']['family_search_id']['hide_empty'] = 0;
-  $handler->display->display_options['fields']['family_search_id']['empty_zero'] = 0;
+  $handler->display->display_options['fields']['gedcom_id']['id'] = 'gedcom_id';
+  $handler->display->display_options['fields']['gedcom_id']['table'] = 'fhd_person';
+  $handler->display->display_options['fields']['gedcom_id']['field'] = 'gedcom_id';
+  $handler->display->display_options['fields']['gedcom_id']['alter']['alter_text'] = 0;
+  $handler->display->display_options['fields']['gedcom_id']['alter']['make_link'] = 0;
+  $handler->display->display_options['fields']['gedcom_id']['alter']['absolute'] = 0;
+  $handler->display->display_options['fields']['gedcom_id']['alter']['external'] = 0;
+  $handler->display->display_options['fields']['gedcom_id']['alter']['replace_spaces'] = 0;
+  $handler->display->display_options['fields']['gedcom_id']['alter']['trim'] = 0;
+  $handler->display->display_options['fields']['gedcom_id']['alter']['nl2br'] = 0;
+  $handler->display->display_options['fields']['gedcom_id']['alter']['word_boundary'] = 1;
+  $handler->display->display_options['fields']['gedcom_id']['alter']['ellipsis'] = 1;
+  $handler->display->display_options['fields']['gedcom_id']['alter']['strip_tags'] = 0;
+  $handler->display->display_options['fields']['gedcom_id']['alter']['html'] = 0;
+  $handler->display->display_options['fields']['gedcom_id']['element_label_colon'] = 1;
+  $handler->display->display_options['fields']['gedcom_id']['element_default_classes'] = 1;
+  $handler->display->display_options['fields']['gedcom_id']['hide_empty'] = 0;
+  $handler->display->display_options['fields']['gedcom_id']['empty_zero'] = 0;
   /* Field: Person: Name */
   $handler->display->display_options['fields']['name']['id'] = 'name';
   $handler->display->display_options['fields']['name']['table'] = 'fhd_person';
@@ -113,19 +113,19 @@ function fhd_person_views_default_views() {
   $handler->display->display_options['fields']['name']['hide_empty'] = 0;
   $handler->display->display_options['fields']['name']['empty_zero'] = 0;
   /* Contextual filter: Person: Family_search_id */
-  $handler->display->display_options['arguments']['family_search_id']['id'] = 'family_search_id';
-  $handler->display->display_options['arguments']['family_search_id']['table'] = 'fhd_person';
-  $handler->display->display_options['arguments']['family_search_id']['field'] = 'family_search_id';
-  $handler->display->display_options['arguments']['family_search_id']['default_action'] = 'not found';
-  $handler->display->display_options['arguments']['family_search_id']['default_argument_type'] = 'fixed';
-  $handler->display->display_options['arguments']['family_search_id']['default_argument_skip_url'] = 0;
-  $handler->display->display_options['arguments']['family_search_id']['summary']['number_of_records'] = '0';
-  $handler->display->display_options['arguments']['family_search_id']['summary']['format'] = 'default_summary';
-  $handler->display->display_options['arguments']['family_search_id']['summary_options']['items_per_page'] = '25';
-  $handler->display->display_options['arguments']['family_search_id']['glossary'] = 0;
-  $handler->display->display_options['arguments']['family_search_id']['limit'] = '0';
-  $handler->display->display_options['arguments']['family_search_id']['transform_dash'] = 0;
-  $handler->display->display_options['arguments']['family_search_id']['break_phrase'] = 0;
+  $handler->display->display_options['arguments']['gedcom_id']['id'] = 'gedcom_id';
+  $handler->display->display_options['arguments']['gedcom_id']['table'] = 'fhd_person';
+  $handler->display->display_options['arguments']['gedcom_id']['field'] = 'gedcom_id';
+  $handler->display->display_options['arguments']['gedcom_id']['default_action'] = 'not found';
+  $handler->display->display_options['arguments']['gedcom_id']['default_argument_type'] = 'fixed';
+  $handler->display->display_options['arguments']['gedcom_id']['default_argument_skip_url'] = 0;
+  $handler->display->display_options['arguments']['gedcom_id']['summary']['number_of_records'] = '0';
+  $handler->display->display_options['arguments']['gedcom_id']['summary']['format'] = 'default_summary';
+  $handler->display->display_options['arguments']['gedcom_id']['summary_options']['items_per_page'] = '25';
+  $handler->display->display_options['arguments']['gedcom_id']['glossary'] = 0;
+  $handler->display->display_options['arguments']['gedcom_id']['limit'] = '0';
+  $handler->display->display_options['arguments']['gedcom_id']['transform_dash'] = 0;
+  $handler->display->display_options['arguments']['gedcom_id']['break_phrase'] = 0;
 
   /* Display: Page */
   $handler = $view->new_display('page', 'Page', 'page');
