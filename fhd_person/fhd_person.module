@@ -5,6 +5,8 @@
  * Test moduel for the entity API.
  */
 
+include_once('fhd_person.features.inc');
+
 /**
  * Implement hook_entity_info().
  */

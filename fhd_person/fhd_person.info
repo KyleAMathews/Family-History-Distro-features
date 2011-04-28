@@ -1,6 +1,11 @@
-name = Person
-description = Provides a "person" entity for storing information pulled from the Family Search API
-core = 7.x
-files[] = fhd_person.module
-files[] = fhd_person.install
-dependencies[] = entity
+core = "7.x"
+dependencies[] = "entity"
+dependencies[] = "views"
+description = "Provides a "person" entity for storing information pulled from the Family Search API"
+features[ctools][] = "views:views_default:3.0"
+features[views_view][] = "person_page"
+files[] = "fhd_person.module"
+files[] = "fhd_person.install"
+name = "Person"
+package = "Other"
+php = "5.2.4"
