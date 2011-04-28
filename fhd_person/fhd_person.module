@@ -12,16 +12,23 @@ function fhd_person_entity_info() {
   $return = array(
     'fhd_person' => array(
       'label' => t('Person'),
-      'entity class' => 'EntityClass',
-      'controller class' => 'EntityAPIController',
+      'entity class' => 'FhdPerson',
+      'controller class' => 'FhdPersonController',
       'base table' => 'fhd_person',
       'fieldable' => TRUE,
+      'view modes' => array(
+        'full' => array(
+          'label' => t('Full content'),
+          'custom settings' => FALSE,
+        ),
+      ),
       'entity keys' => array(
         'id' => 'pid',
-        'bundle' => 'fhd_person',
+        'label' => 'Person',
       ),
       'label callback' => 'entity_class_label',
       'uri callback' => 'entity_class_uri',
+      'module' => 'fhd_person',
     ),
   );
   return $return;
@@ -57,10 +64,10 @@ function fhd_person_delete_multiple(array $pids) {
 /**
  * Main class for test entities.
  */
-class EntityClass extends Entity {
+class FhdPerson extends Entity {
 
   public function __construct(array $values = array(), $entityType = NULL) {
-    parent::__construct($values, 'fhd_person');
+    parent::__construct($values, $entityType);
   }
 
   /**
@@ -68,7 +75,7 @@ class EntityClass extends Entity {
    */
   public function buildContent($view_mode = 'full', $langcode = NULL) {
     $content['user'] = array(
-      '#markup' => "User: ". format_username(user_load($this->uid)),
+      '#markup' => "I was here",
     );
     return entity_get_controller($this->entityType)->buildContent($this, $view_mode, $langcode, $content);
   }
@@ -84,8 +91,24 @@ class EntityClass extends Entity {
   /**
    * Specifies the default uri, which is picked up by uri() by default.
    */
-  protected function defaultURI() {
-    return array('path' => 'custom/' . $this->identifier());
+  protected function defaultUri() {
+    return array('path' => 'person/' . $this->identifier());
+  }
+
+  /**
+   * Returns the full url() for the person.
+   */
+  public function url() {
+    $uri = $this->uri();
+    return url($uri['path']);
+  }
+
+  /**
+   * Returns the drupal path to this person.
+   */
+  public function path() {
+    $uri = $this->uri();
+    return url($uri['path']);
   }
 }
 
@@ -103,75 +126,21 @@ class EntityClass extends Entity {
  * Implements hook_entity_insert().
  */
 function fhd_person_entity_insert($entity, $entity_type) {
-  $_SESSION['entity_hook_test']['entity_insert'][] = entity_id($entity_type, $entity);
+
 }
 
 /**
  * Implements hook_entity_update().
  */
 function fhd_person_entity_update($entity, $entity_type) {
-  $_SESSION['entity_hook_test']['entity_update'][] = entity_id($entity_type, $entity);
+
 }
 
 /**
  * Implements hook_entity_delete().
  */
 function fhd_person_entity_delete($entity, $entity_type) {
-  $_SESSION['entity_hook_test']['entity_delete'][] = entity_id($entity_type, $entity);
-}
 
-/**
- * Implements hook_fhd_person_type_insert().
- */
-function fhd_person_fhd_person_type_insert($entity) {
-  $_SESSION['entity_hook_test']['fhd_person_type_insert'][] = $entity->identifier();
-}
-
-/**
- * Implements hook_fhd_person_type_update().
- */
-function fhd_person_fhd_person_type_update($entity) {
-  $_SESSION['entity_hook_test']['fhd_person_type_update'][] = $entity->identifier();
-
-  // Determine changes on update.
-  if (!empty($entity->original) && $entity->original->label == 'test_changes') {
-    if ($entity->original->label != $entity->label) {
-      $entity->label .= '_update';
-    }
-  }
-}
-
-/**
- * Implements hook_fhd_person_type_delete().
- */
-function fhd_person_fhd_person_type_delete($entity) {
-  $_SESSION['entity_hook_test']['fhd_person_type_delete'][] = $entity->identifier();
-}
-
-/**
- * Implements hook_fhd_person_type_presave().
- */
-function fhd_person_fhd_person_type_presave($entity) {
-  // Determine changes.
-  if (!empty($entity->original) && $entity->original->label == 'test_changes') {
-    if ($entity->original->label != $entity->label) {
-      $entity->label .= '_presave';
-    }
-  }
-}
-
-/**
- * Implements hook_entity_property_info_alter() for testing an property of type
- * 'entity'.
- */
-function fhd_person_entity_property_info_alter(&$info) {
-  $info['node']['properties']['reference'] = array(
-    'label' => t('Test reference'),
-    'description' => t('A generic entity reference.'),
-    'getter callback' => 'fhd_person_entity_getter',
-    'setter callback' => 'fhd_person_entity_setter',
-    'type' => 'entity',
-  );
 }
 
 /**
@@ -191,4 +160,23 @@ function fhd_person_entity_getter($node) {
 function fhd_person_entity_setter($node, $property_name, $wrapper) {
   // The entity has to be passed wrapped.
   $node->entity = array('type' => $wrapper->type(), 'id' => $wrapper->getIdentifier());
+}
+
+class FhdPersonController extends EntityAPIController {
+
+   /**
+    * Overridden.
+    * @see DrupalDefaultEntityController#load($ids, $conditions)
+    *
+    * In contrast to the parent implementation we factor out query execution, so
+    * fetching can be further customized easily. Also we add any in code defined
+    * objects.
+    */
+   public function load($ids = array(), $conditions = array()) {
+     $entities = parent::load($ids, $conditions);
+
+     // If entities return nothing and conditions have an fs id set, then we'll
+     // try to fetch that person from the FHS API and save them as a new entity.
+     return $entities;
+   }
 }
