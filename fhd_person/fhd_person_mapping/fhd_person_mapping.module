@@ -50,7 +50,9 @@ function fhd_person_mapping_theme() {
 }
 
 function template_preprocess_fhd_person_mapping_block(&$vars) {
-  //$vars['person'] = array_pop(entity_load('fhd_person', array($vars['pid'])));
+  $person = $vars['person'];
+  $vars['person_link'] = l($person->name, 'person/' . $person->pid);
+  $vars['birth_string'] = date('Y', $person->birth_date) . ' ' . check_plain($person->birth_place);
 }
 
 function _fhd_person_mapping_ajax_callback() {
