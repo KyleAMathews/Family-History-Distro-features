@@ -69,12 +69,12 @@ function _fhd_person_mapping_autocomplete($string) {
   $matches = array();
 
   // Other suggestions.
-  $result = db_query_range("SELECT pid,name FROM {fhd_person} WHERE LOWER(name) LIKE LOWER(:string)", 0, 10, array(
+  $result = db_query_range("SELECT pid, name, birth_date FROM {fhd_person} WHERE LOWER(name) LIKE LOWER(:string)", 0, 10, array(
     ':string' => $string . '%',
   ));
 
   foreach ($result as $person) {
-    $matches[$person->name . '____' . $person->pid] = check_plain($person->name);
+    $matches[$person->name . '____' . $person->pid] = check_plain($person->name) . " b. " . date('Y', $person->birth_date);
   }
 
   if (module_exists('devel')) {
@@ -130,7 +130,7 @@ function fhd_person_mapping_autocomplete() {
   $form['person_field'] = array(
     '#prefix' => _fhd_person_mapping_related_person($node->nid) . '<div class="container-inline"><h3>Add person</h3>',
     '#type' => 'textfield',
-    '#size' => '18',
+    '#size' => '35',
     '#default_value' => '',
     '#autocomplete_path' => 'fhd-person-mapping/autocomplete',
     '#required' => TRUE,

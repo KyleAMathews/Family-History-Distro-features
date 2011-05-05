@@ -2,7 +2,7 @@ do ->
   $ = jQuery
   Drupal.behaviors.fhdRemoveReferencedPerson =
     attach: ->
-      $('.remove-referenced-person').click ->
+      $('.remove-referenced-person').tipsy().click ->
         url = Drupal.settings.basePath + 'fhd-person-mapping/callback'
         pid = $(@).attr('data-pid')
         nid = $(@).attr('data-nid')
@@ -10,4 +10,3 @@ do ->
         $.post url, {action: 'remove', pid: pid, nid: nid}
         # Remove the person block off the page.
         $(@).parent().slideUp()
-      .tipsy()

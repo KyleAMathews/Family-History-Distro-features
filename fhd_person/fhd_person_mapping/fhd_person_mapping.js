@@ -3,7 +3,7 @@
   $ = jQuery;
   return Drupal.behaviors.fhdRemoveReferencedPerson = {
     attach: function() {
-      return $('.remove-referenced-person').click(function() {
+      return $('.remove-referenced-person').tipsy().click(function() {
         var nid, pid, url;
         url = Drupal.settings.basePath + 'fhd-person-mapping/callback';
         pid = $(this).attr('data-pid');
@@ -14,7 +14,7 @@
           nid: nid
         });
         return $(this).parent().slideUp();
-      }).tipsy();
+      });
     }
   };
 })();
