@@ -37,7 +37,7 @@ function fhd_person_entity_info() {
 }
 
 /**
- * Load multiple test entities based on certain conditions.
+ * Load multiple fhd_person entities based on certain conditions.
  *
  * @param $pids
  *   An array of entity IDs.

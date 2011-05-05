@@ -1,0 +1,5 @@
+core = "7.x"
+name = "Content Person Mapping"
+description = "Provides an API for creating mappings between content and relations"
+files[] = "fhd_person_mapping.module"
+files[] = "fhd_person_mapping.install"

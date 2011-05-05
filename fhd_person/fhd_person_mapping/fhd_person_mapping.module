@@ -1,0 +1,200 @@
+<?php
+
+/**
+ * @file
+ * Code related to fhd_person_mapping module. Yes, lame docs.
+ */
+
+/**
+ * Implementation of hook_init().
+ */
+function fhd_person_mapping_init() {
+  drupal_add_js(drupal_get_path('module', 'fhd_person_mapping') . "/fhd_person_mapping.js");
+}
+
+/**
+ * Implementation of hook_menu()
+ */
+function fhd_person_mapping_menu() {
+  $items = array();
+
+  // ajax callback + autocomplete
+  // Put your menu items here.
+  $items['fhd-person-mapping/callback'] = array(
+    'title' => 'Ajax callback',
+    'type' => MENU_CALLBACK,
+    'page callback' => '_fhd_person_mapping_ajax_callback',
+    'access callback' => TRUE,
+  );
+  $items['fhd-person-mapping/autocomplete'] = array(
+    'title' => 'autocomplete callback',
+    'type' => MENU_CALLBACK,
+    'page callback' => '_fhd_person_mapping_autocomplete',
+    'access callback' => TRUE,
+  );
+
+  return $items;
+}
+
+
+/**
+ * Implementation of hook_theme()
+ */
+function fhd_person_mapping_theme() {
+  return array(
+    'fhd_person_mapping_block' => array(
+      'template' => 'fhd_person_mapping_block',
+      'variables' => array('person' => NULL, 'nid' => NULL),
+    ),
+  );
+}
+
+function template_preprocess_fhd_person_mapping_block(&$vars) {
+  //$vars['person'] = array_pop(entity_load('fhd_person', array($vars['pid'])));
+}
+
+function _fhd_person_mapping_ajax_callback() {
+  // Do whatever is needed here
+  if ($_REQUEST['action'] == 'remove') {
+    fhd_person_mapping_delete($_REQUEST['nid'], $_REQUEST['pid']);
+    exit();
+  }
+
+  print_r($_REQUEST);
+  print "hello world";
+  // Load block and print
+}
+
+function _fhd_person_mapping_autocomplete($string) {
+  $matches = array();
+
+  // Other suggestions.
+  $result = db_query_range("SELECT pid,name FROM {fhd_person} WHERE LOWER(name) LIKE LOWER(:string)", 0, 10, array(
+    ':string' => $string . '%',
+  ));
+
+  foreach ($result as $person) {
+    $matches[$person->name . '____' . $person->pid] = check_plain($person->name);
+  }
+
+  if (module_exists('devel')) {
+    $GLOBALS['devel_shutdown'] = FALSE;
+  }
+
+  drupal_json_output($matches);
+}
+
+/**
+ * Implementation of hook_block_info().
+ */
+function fhd_person_mapping_block_info() {
+  $blocks['fhd_person_mapping_people'] = array(
+    'info' => t('Associated People Block'),
+  );
+
+  return $blocks;
+}
+
+/**
+ * Implements hook_block_view().
+ */
+function fhd_person_mapping_block_view($delta = '') {
+  //The $delta parameter tells us which block is being requested.
+  switch ($delta) {
+    case 'fhd_person_mapping_people':
+      $block = _fhd_person_mapping_people_block();
+      break;
+  }
+  return $block;
+}
+
+function _fhd_person_mapping_people_block() {
+  $block['subject'] = "";
+  $block['content'] =  drupal_get_form('fhd_person_mapping_autocomplete');
+
+  return $block;
+}
+
+function _fhd_person_mapping_related_person($nid) {
+  $persons = fhd_person_mapping_load($nid);
+  $content = "";
+  $content .= "<div>";
+  foreach ($persons as $person) {
+    $content .= theme('fhd_person_mapping_block', array('person' => $person, 'nid' => $nid));
+  }
+  return $content;
+}
+
+function fhd_person_mapping_autocomplete() {
+  $node = menu_get_object();
+  $form['person_field'] = array(
+    '#prefix' => _fhd_person_mapping_related_person($node->nid) . '<div class="container-inline"><h3>Add person</h3>',
+    '#type' => 'textfield',
+    '#size' => '18',
+    '#default_value' => '',
+    '#autocomplete_path' => 'fhd-person-mapping/autocomplete',
+    '#required' => TRUE,
+  );
+  $form['submit'] = array(
+    '#type' => 'submit',
+    '#value' => t('Add'),
+    '#suffix' => '</div>',
+  );
+
+  return $form;
+}
+
+function fhd_person_mapping_autocomplete_submit($form, &$form_state) {
+  $node = menu_get_object();
+  $pid = array_pop(explode('____', $form_state['values']['person_field']));
+
+  fhd_person_mapping_create($node->nid, $pid);
+  drupal_set_message('Person assigned successfully');
+
+}
+
+/****************************
+ *** API Functions
+ ***************************/
+
+/**
+ * Create new mapping.
+ */
+function fhd_person_mapping_create($nid, $pid) {
+  return db_insert('fhd_content_person_mapping')
+    ->fields(array(
+      'nid' => $nid,
+      'pid' => $pid,
+    ))
+    ->execute();
+}
+
+/**
+ * Load all entities related to a certain nid.
+ */
+function fhd_person_mapping_load($nid) {
+  // Select all persons associated with this node.
+  $result = db_query("SELECT pid FROM {fhd_content_person_mapping} WHERE nid = :nid",
+    array(':nid' => $nid));
+
+  return fhd_person_load_multiple($result->fetchCol());
+}
+
+/**
+ * Delete mappings related to a nid.
+ */
+function fhd_person_mapping_delete_nid($nid) {
+  return db_delete('fhd_content_person_mapping')
+    ->condition('nid', $nid)
+    ->execute();
+}
+
+/**
+ * Delete a nid/pid mapping.
+ */
+function fhd_person_mapping_delete($nid, $pid) {
+  return db_delete('fhd_content_person_mapping')
+    ->condition('nid', $nid)
+    ->condition('pid', $pid)
+    ->execute();
+}

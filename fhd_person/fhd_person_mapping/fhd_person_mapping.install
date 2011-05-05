@@ -1,0 +1,34 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the fhd_person_mapping module.
+ */
+
+/**
+ * Implement hook_schema().
+ */
+function fhd_person_mapping_schema() {
+  $schema['fhd_content_person_mapping'] = array(
+    'description' => 'Stores mappings between content and people the content is about.',
+    'fields' => array(
+      'nid' => array(
+        'description' => 'The nid of the content',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+       'pid' => array(
+        'description' => 'The entity id of the person',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+    ),
+    'primary key' => array('nid', 'pid'),
+  );
+
+  return $schema;
+}
