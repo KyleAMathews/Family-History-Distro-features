@@ -182,3 +182,33 @@ class FhdPersonController extends EntityAPIController {
      return $entities;
    }
 }
+
+function fhd_person_load_gedcom($file_path) {
+  require_once 'Genealogy/Gedcom.php';
+
+  $ged = new Genealogy_Gedcom('/tmp/sevenGenerationsLegacy.ged');
+  $persons = $ged->GedcomIndividualsTreeObjects;
+
+  foreach ($persons as $person) {
+    $bplace = $person->Birth['Place'];
+    $entity = array(
+      'name' => fixEncoding(trim($person->Firstname) . " " . trim($person->Lastname)),
+     'birth_date' => strtotime($person->Birth['Date']),
+     'birth_place' => utf8_encode($person->Birth['Place']),
+     'sex' => $person->Sex,
+     'gedcom_id' => $person->Identifier,
+    );
+
+    // Gedcom parser erroneously duplicates birth info into death/burial
+    if ($person->Death['Date'] != $person->Birth['Date']) {
+      $entity['death_date'] = strtotime($person->Death['Date']);
+      $entity['death_place'] = utf8_encode($person->Death['Place']);
+    }
+    if ($person->Burial['Date'] != $person->Birth['Date']) {
+      $entity['burial_date'] = strtotime($person->Burial['Date']);
+      $entity['burial_place'] = utf8_encode($person->Burial['Place']);
+    }
+
+    entity_save('fhd_person', $entity);
+  }
+}
