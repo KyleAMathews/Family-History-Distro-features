@@ -25,32 +25,35 @@ function fhd_person_schema() {
       'birth_date' => array(
         'description' => 'The birth date of the person.',
         'type' => 'int',
+        'size' => 'big',
         'sortable' => TRUE,
       ),
       'birth_place' => array(
         'description' => 'The birth place of the person',
         'type' => 'varchar',
-        'length' => 128,
+        'length' => 256,
       ),
       'death_date' => array(
         'description' => 'The death date of the person.',
         'type' => 'int',
+        'size' => 'big',
         'sortable' => TRUE,
       ),
       'death_place' => array(
         'description' => 'The death place of the person',
         'type' => 'varchar',
-        'length' => 128,
+        'length' => 256,
       ),
       'burial_date' => array(
         'description' => 'The burial date of the person.',
         'type' => 'int',
+        'size' => 'big',
         'sortable' => TRUE,
       ),
       'burial_place' => array(
         'description' => 'The burial place of the person',
         'type' => 'varchar',
-        'length' => 128,
+        'length' => 256,
       ),
       'sex' => array(
         'description' => 'The gender of the person',
