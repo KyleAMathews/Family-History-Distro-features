@@ -184,6 +184,7 @@ class FhdPersonController extends EntityAPIController {
 }
 
 function fhd_person_load_gedcom($file_path) {
+  date_default_timezone_set(variable_get('date_default_timezone', 'America/Denver'));
   require_once 'Genealogy/Gedcom.php';
 
   $ged = new Genealogy_Gedcom($file_path);
@@ -223,12 +224,37 @@ function fixEncoding($in_str) {
 }
 
 function _fhd_get_date($str) {
-  if (($timestamp = strtotime($str)) === false && !empty($str)) {
+  try {
+    if (@strtotime($str) !== false) {
+      $date = new DateTime($str);
+    }
+  } catch (Exception $e) {
+    // Just ignore the exception.
+  }
+
+  if (is_object($date)) {
+    return $date->format('U');
+  }
+  else{
     // Trim off "Abt" or other odd charecters that slip in
     $str = trim($str, ' Aabt<>');
     // Sometimes there's a date range, just grab the first.
     $str = array_pop(explode('-',$str));
-    $timestamp = strtotime($str);
+
+    try {
+      if (@strtotime($str) !== false) {
+        $date = new DateTime($str);
+      }
+    } catch (Exception $e) {
+      // Just ignore the exception.
+    }
+
+    if (is_object($date)) {
+      return $date->format('U');
+    }
+    else {
+      echo "the string " . $str . " is bogus\n";
+      return '';
+    }
   }
-  return $timestamp;
 }
