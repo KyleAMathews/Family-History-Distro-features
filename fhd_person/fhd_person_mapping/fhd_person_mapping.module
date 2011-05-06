@@ -74,19 +74,34 @@ function _fhd_person_mapping_autocomplete($string) {
   $matches = array();
 
   // Other suggestions.
-  $result = db_query_range("SELECT pid, name, birth_date FROM {fhd_person} WHERE LOWER(name) LIKE LOWER(:string)", 0, 10, array(
+  $result = db_query_range("SELECT pid, name, birth_date
+    FROM {fhd_person}
+    WHERE LOWER(name)
+    LIKE LOWER(:string)", 0, 25, array(
     ':string' => $string . '%',
   ));
 
+  $persons = array();
   foreach ($result as $person) {
+    $persons[] = $person;
+  }
+  usort($persons, "_fhd_cmp_persons");
+  $persons = array_slice($persons, 0, 15);
+  foreach ($persons as $person) {
     $matches[$person->name . '____' . $person->pid] = check_plain($person->name) . " b. " . date('Y', $person->birth_date);
   }
-
   if (module_exists('devel')) {
     $GLOBALS['devel_shutdown'] = FALSE;
   }
 
   drupal_json_output($matches);
+}
+
+function _fhd_cmp_persons($a, $b) {
+  if ($a->birth_date == $b->birth_date) {
+    return 0;
+  }
+  return ($a->birth_date < $b->birth_date) ? -1 : 1;
 }
 
 /**
@@ -125,7 +140,6 @@ function _fhd_person_mapping_related_person($nid) {
   $content = "";
   $content .= "<div>";
   foreach ($persons as $person) {
-    dpm($person);
     $content .= theme('fhd_person_mapping_block', array('person' => $person, 'nid' => $nid));
   }
   return $content;
