@@ -186,7 +186,7 @@ class FhdPersonController extends EntityAPIController {
 function fhd_person_load_gedcom($file_path) {
   require_once 'Genealogy/Gedcom.php';
 
-  $ged = new Genealogy_Gedcom('/tmp/sevenGenerationsLegacy.ged');
+  $ged = new Genealogy_Gedcom($file_path);
   $persons = $ged->GedcomIndividualsTreeObjects;
 
   foreach ($persons as $person) {
