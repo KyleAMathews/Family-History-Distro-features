@@ -190,10 +190,9 @@ function fhd_person_load_gedcom($file_path) {
   $persons = $ged->GedcomIndividualsTreeObjects;
 
   foreach ($persons as $person) {
-    $bplace = $person->Birth['Place'];
     $entity = array(
       'name' => fixEncoding(trim($person->Firstname) . " " . trim($person->Lastname)),
-     'birth_date' => strtotime($person->Birth['Date']),
+     'birth_date' => _fhd_get_date($person->Birth['Date']),
      'birth_place' => utf8_encode($person->Birth['Place']),
      'sex' => $person->Sex,
      'gedcom_id' => $person->Identifier,
@@ -201,11 +200,11 @@ function fhd_person_load_gedcom($file_path) {
 
     // Gedcom parser erroneously duplicates birth info into death/burial
     if ($person->Death['Date'] != $person->Birth['Date']) {
-      $entity['death_date'] = strtotime($person->Death['Date']);
+      $entity['death_date'] = _fhd_get_date($person->Death['Date']);
       $entity['death_place'] = utf8_encode($person->Death['Place']);
     }
     if ($person->Burial['Date'] != $person->Birth['Date']) {
-      $entity['burial_date'] = strtotime($person->Burial['Date']);
+      $entity['burial_date'] = _fhd_get_date($person->Burial['Date']);
       $entity['burial_place'] = utf8_encode($person->Burial['Place']);
     }
 
@@ -221,4 +220,15 @@ function fixEncoding($in_str) {
   else{
     return utf8_encode($in_str);
   }
+}
+
+function _fhd_get_date($str) {
+  if (($timestamp = strtotime($str)) === false && !empty($str)) {
+    // Trim off "Abt" or other odd charecters that slip in
+    $str = trim($str, ' Aabt<>');
+    // Sometimes there's a date range, just grab the first.
+    $str = array_pop(explode('-',$str));
+    $timestamp = strtotime($str);
+  }
+  return $timestamp;
 }
