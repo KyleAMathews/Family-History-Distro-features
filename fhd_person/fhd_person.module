@@ -209,7 +209,7 @@ function fhd_person_load_gedcom($file_path) {
       $entity['burial_place'] = utf8_encode($person->Burial['Place']);
     }
 
-    entity_save('fhd_person', $entity);
+    //entity_save('fhd_person', $entity);
   }
 }
 
@@ -224,16 +224,9 @@ function fixEncoding($in_str) {
 }
 
 function _fhd_get_date($str) {
-  try {
-    if (@strtotime($str) !== false) {
-      $date = new DateTime($str);
-    }
-  } catch (Exception $e) {
-    // Just ignore the exception.
-  }
-
-  if (is_object($date)) {
-    return $date->format('U');
+  $timestamp = @safestrtotime($str);
+  if (is_int($timestamp)) {
+    return $timestamp;
   }
   else{
     // Trim off "Abt" or other odd charecters that slip in
@@ -241,20 +234,62 @@ function _fhd_get_date($str) {
     // Sometimes there's a date range, just grab the first.
     $str = array_pop(explode('-',$str));
 
-    try {
-      if (@strtotime($str) !== false) {
-        $date = new DateTime($str);
-      }
-    } catch (Exception $e) {
-      // Just ignore the exception.
-    }
-
-    if (is_object($date)) {
-      return $date->format('U');
+    $timestamp = @safestrtotime($str);
+    if (is_int($timestamp)) {
+      return $timestamp;
     }
     else {
       echo "the string " . $str . " is bogus\n";
       return '';
     }
   }
+}
+
+function safestrtotime($strInput)
+{
+    $iVal = -1;
+    for ($i=1500; $i<=1969; $i++)
+    {
+        // Check for this year string in date
+        $strYear = (string)$i;
+        if (!(strpos($strInput, $strYear)===false))
+        {
+            $replYear = $strYear;
+            $yearSkew = 1970 - $i;
+            $strInput = str_replace($strYear, '1970', $strInput);
+        }
+    }
+    $iVal = strtotime($strInput);
+    if ($yearSkew> 0)
+    {
+        $numSecs = (60 * 60 * 24 * 365 * $yearSkew);
+        $iVal = $iVal - $numSecs;
+        $numLeapYears = 0;  // determine number of leap years in period
+        for ($j=$replYear; $j<=1969; $j++)
+        {
+            $thisYear = $j;
+            $isLeapYear = false;
+            // Is div by 4?
+            if (($thisYear % 4) == 0)
+            {
+                $isLeapYear = true;
+            }
+            // Is div by 100?
+            if (($thisYear % 100) == 0)
+            {
+                $isLeapYear = false;
+            }
+            // Is div by 1000?
+            if (($thisYear % 1000) == 0)
+            {
+                $isLeapYear = true;
+            }
+            if ($isLeapYear == true)
+            {
+                $numLeapYears++;
+            }
+        }
+        $iVal = $iVal - (60 * 60 * 24 * $numLeapYears);
+    }
+    return $iVal;
 }
