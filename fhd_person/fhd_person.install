@@ -6,79 +6,6 @@
  */
 
 /**
- * Implement hook_install().
- */
-function fhd_person_install() {
-  /** I don't think we actually need fields as we'll never actually edit this info on site
-  // Auto-create a field for the full name.
-  $field = array(
-    'field_name' => 'fhd_person_fullname',
-    'type' => 'text',
-    'cardinality' => 1,
-    'translatable' => FALSE,
-  );
-  field_create_field($field);
-
-  $instance = array(
-    'entity_type' => 'fhd_person',
-    'field_name' => 'fhd_person_fullname',
-    'bundle' => 'main',
-    'label' => 'Full name',
-    'description' => 'Specify your first and last name.',
-    'widget' => array(
-      'type' => 'text_textfield',
-      'weight' => 0,
-    ),
-  );
-  field_create_instance($instance);
-
-  // Auto-create a field for the birth date.
-  $field = array(
-    'field_name' => 'fhd_person_birth_date',
-    'type' => 'text',
-    'cardinality' => 1,
-    'translatable' => FALSE,
-  );
-  field_create_field($field);
-
-  $instance = array(
-    'entity_type' => 'fhd_person',
-    'field_name' => 'fhd_person_birth_date',
-    'bundle' => 'main',
-    'label' => 'Birth Date',
-    'description' => 'Specify the person\'s birth date.',
-    'widget' => array(
-      'type' => 'text_textfield',
-      'weight' => 0,
-    ),
-  );
-  field_create_instance($instance);
-  
-  // Auto-create a field for the birthplace.
-  $field = array(
-    'field_name' => 'fhd_person_birth_place',
-    'type' => 'text',
-    'cardinality' => 1,
-    'translatable' => FALSE,
-  );
-  field_create_field($field);
-
-  $instance = array(
-    'entity_type' => 'fhd_person',
-    'field_name' => 'fhd_person_birth_place',
-    'bundle' => 'main',
-    'label' => 'Birth place',
-    'description' => 'Specify the person\'s birth place',
-    'widget' => array(
-      'type' => 'text_textfield',
-      'weight' => 0,
-    ),
-  );
-  field_create_instance($instance);
-  **/
-}
-
-/**
  * Implement hook_schema().
  */
 function fhd_person_schema() {
@@ -91,19 +18,44 @@ function fhd_person_schema() {
         'description' => 'Primary Key: Unique fhd_person item ID.',
       ),
       'name' => array(
-        'description' => 'The name of the fhd_person.',
+        'description' => 'The name of the person.',
         'type' => 'varchar',
-        'length' => 128,
+        'length' => 256,
       ),
       'birth_date' => array(
-        'description' => 'The birthdate of the fhd_person.',
+        'description' => 'The birth date of the person.',
         'type' => 'int',
         'sortable' => TRUE,
       ),
       'birth_place' => array(
-        'description' => 'The birthplace of the person',
+        'description' => 'The birth place of the person',
         'type' => 'varchar',
         'length' => 128,
+      ),
+      'death_date' => array(
+        'description' => 'The death date of the person.',
+        'type' => 'int',
+        'sortable' => TRUE,
+      ),
+      'death_place' => array(
+        'description' => 'The death place of the person',
+        'type' => 'varchar',
+        'length' => 128,
+      ),
+      'burial_date' => array(
+        'description' => 'The burial date of the person.',
+        'type' => 'int',
+        'sortable' => TRUE,
+      ),
+      'burial_place' => array(
+        'description' => 'The burial place of the person',
+        'type' => 'varchar',
+        'length' => 128,
+      ),
+      'sex' => array(
+        'description' => 'The gender of the person',
+        'type' => 'varchar',
+        'length' => 56,
       ),
       'gedcom_id' => array(
         'type' => 'varchar',
@@ -112,6 +64,9 @@ function fhd_person_schema() {
       ),
     ),
     'primary key' => array('pid'),
+    'indexes' => array(
+      'gedcom_id' => array('gedcom_id'),
+    ),
   );
 
   return $schema;

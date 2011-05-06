@@ -6,13 +6,26 @@ $ged = new Genealogy_Gedcom('sites/all/modules/familyhistorydistro-features/fhd_
 $persons = $ged->GedcomIndividualsTreeObjects;
 
 foreach ($persons as $person) {
+
   $bplace = $person->Birth['Place'];
   $entity = array(
-    'name' => fixEncoding($person->Firstname . $person->Lastname),
+    'name' => fixEncoding($person->Firstname . " " . $person->Lastname),
     'birth_date' => strtotime($person->Birth['Date']),
     'birth_place' => utf8_encode($person->Birth['Place']),
+    'sex' => $person->Sex,
     'gedcom_id' => $person->Identifier,
   );
+
+    // Gedcom parser erroneously duplicates birth info into death/burial
+    if ($person->Death['Date'] != $person->Birth['Date']) {
+      $entity['death_date'] = strtotime($person->Death['Date']);
+      $entity['death_place'] = utf8_encode($person->Death['Place']);
+    }
+    if ($person->Burial['Date'] != $person->Birth['Date']) {
+      $entity['burial_date'] = strtotime($person->Burial['Date']);
+      $entity['burial_place'] = utf8_encode($person->Burial['Place']);
+    }
+  print_r($entity);
   entity_save('fhd_person', $entity);
   mb_detect_encoding($bplace, "UTF-8") == "UTF-8" ? '' : $bplace = utf8_encode($bplace);
   $bplace = utf8_encode($bplace);
