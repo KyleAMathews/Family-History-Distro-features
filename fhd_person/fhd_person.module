@@ -225,7 +225,7 @@ function fixEncoding($in_str) {
 
 function _fhd_get_date($str) {
   $timestamp = @safestrtotime($str);
-  if (is_int($timestamp)) {
+  if (!empty($timestamp)) {
     return $timestamp;
   }
   else{
@@ -235,7 +235,7 @@ function _fhd_get_date($str) {
     $str = array_pop(explode('-',$str));
 
     $timestamp = @safestrtotime($str);
-    if (is_int($timestamp)) {
+    if (!empty($timestamp)) {
       return $timestamp;
     }
     else {
