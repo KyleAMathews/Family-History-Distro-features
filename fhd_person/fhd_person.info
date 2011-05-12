@@ -1,7 +1,7 @@
 core = "7.x"
 dependencies[] = "entity"
 dependencies[] = "views"
-description = """Provides a "person" entity for storing information pulled from the Family Search API"""
+description = "Provides a "person" entity for storing information pulled from the Family Search API"
 features[ctools][] = "views:views_default:3.0"
 features[views_view][] = "person_page"
 files[] = "fhd_person.module"
