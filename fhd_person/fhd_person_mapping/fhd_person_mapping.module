@@ -50,11 +50,25 @@ function fhd_person_mapping_theme() {
 }
 
 function template_preprocess_fhd_person_mapping_block(&$vars) {
+  if (date('Y', -4753702800) == 1901) {
+    $borked_date = TRUE;
+  }
+
   $person = $vars['person'];
   $vars['person_link'] = l($person->name, 'person/' . $person->pid);
-  $vars['birth_string'] = date('Y', $person->birth_date) . ' ' . check_plain($person->birth_place);
+  if ($borked_date) {
+    $vars['birth_string'] = timestamp_year($person->birth_date) . ' ' . check_plain($person->birth_place);
+  }
+  else{
+    $vars['birth_string'] = date('Y', $person->birth_date) . ' ' . check_plain($person->birth_place);
+  }
   if (!empty($person->death_date)) {
-    $vars['death_string'] = date('Y', $person->death_date) . ' ' . check_plain($person->death_place);
+    if ($borked_date) {
+      $vars['death_string'] = timestamp_year($person->death_date) . ' ' . check_plain($person->death_place);
+    }
+    else {
+      $vars['death_string'] = date('Y', $person->death_date) . ' ' . check_plain($person->death_place);
+    }
   }
 }
 
@@ -70,6 +84,9 @@ function _fhd_person_mapping_ajax_callback() {
   // Load block and print
 }
 
+/**
+ * @todo Create a searchable column so we can do fulltext search.
+ **/
 function _fhd_person_mapping_autocomplete($string) {
   $matches = array();
 

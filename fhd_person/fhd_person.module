@@ -293,3 +293,7 @@ function safestrtotime($strInput)
     }
     return $iVal;
 }
+
+function timestamp_year($timestamp) {
+  return round($timestamp/365/24/60/60);
+}
