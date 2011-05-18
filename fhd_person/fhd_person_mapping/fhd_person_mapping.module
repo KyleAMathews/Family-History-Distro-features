@@ -52,6 +52,7 @@ function fhd_person_mapping_theme() {
 function template_preprocess_fhd_person_mapping_block(&$vars) {
   $person = $vars['person'];
 
+  $borked_date = FALSE;
   if (date('Y', $person->birth_date) == 1901) {
     $borked_date = TRUE;
   }
