@@ -295,5 +295,5 @@ function safestrtotime($strInput)
 }
 
 function timestamp_year($timestamp) {
-  return round($timestamp/365/24/60/60);
+  return 1970 + round($timestamp/365/24/60/60);
 }
