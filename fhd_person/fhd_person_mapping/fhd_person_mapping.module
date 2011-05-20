@@ -32,6 +32,12 @@ function fhd_person_mapping_menu() {
     'page callback' => '_fhd_person_mapping_autocomplete',
     'access callback' => TRUE,
   );
+  $items['fhd-person-mapping/not-tagged'] = array(
+    'title' => 'Content pages without a person tag',
+    'page callback' => 'fhd_person_not_tagged',
+    'access callback' => TRUE,
+  );
+
 
   return $items;
 }
@@ -189,6 +195,16 @@ function fhd_person_mapping_autocomplete_submit($form, &$form_state) {
   fhd_person_mapping_create($node->nid, $pid);
   drupal_set_message('Person assigned successfully');
 
+}
+
+function fhd_person_not_tagged() {
+  $result = db_query("SELECT nid,title FROM {node} WHERE nid not in (SELECT distinct nid FROM {fhd_content_person_mapping})");
+  $items = array();
+  foreach ($result as $record) {
+    $items[] = l($record->title, "node/" . $record->nid);
+  }
+
+  return theme('item_list', array('items' => $items, 'The title!!!', 'ul'));
 }
 
 /****************************
