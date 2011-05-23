@@ -204,7 +204,7 @@ function fhd_person_not_tagged() {
     $items[] = l($record->title, "node/" . $record->nid);
   }
 
-  return theme('item_list', array('items' => $items, 'The title!!!', 'ul'));
+  return "<h2>" . count($items) . " pages left to tag!</h2><br />" . theme('item_list', array('items' => $items, 'The title!!!', 'ul'));
 }
 
 /****************************
