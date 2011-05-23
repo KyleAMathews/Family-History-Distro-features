@@ -1,5 +1,6 @@
 <?php
 
+require(drupal_get_path('module', 'fhd_person') . "/../adodb-time.inc.php");
 /**
  * @file
  * Code related to fhd_person_mapping module. Yes, lame docs.
@@ -58,25 +59,9 @@ function fhd_person_mapping_theme() {
 function template_preprocess_fhd_person_mapping_block(&$vars) {
   $person = $vars['person'];
 
-  $borked_date = FALSE;
-  if (date('Y', $person->birth_date) == 1901) {
-    $borked_date = TRUE;
-  }
   $vars['person_link'] = l($person->name, 'person/' . $person->pid);
-  if ($borked_date) {
-    $vars['birth_string'] = timestamp_year($person->birth_date) . ' ' . check_plain($person->birth_place);
-  }
-  else{
-    $vars['birth_string'] = date('Y', $person->birth_date) . ' ' . check_plain($person->birth_place);
-  }
-  if (!empty($person->death_date)) {
-    if ($borked_date) {
-      $vars['death_string'] = timestamp_year($person->death_date) . ' ' . check_plain($person->death_place);
-    }
-    else {
-      $vars['death_string'] = date('Y', $person->death_date) . ' ' . check_plain($person->death_place);
-    }
-  }
+  $vars['birth_string'] = adodb_date('Y', $person->birth_date) . ' ' . check_plain($person->birth_place);
+  $vars['death_string'] = adodb_date('Y', $person->death_date) . ' ' . check_plain($person->death_place);
 }
 
 function _fhd_person_mapping_ajax_callback() {
@@ -112,7 +97,7 @@ function _fhd_person_mapping_autocomplete($string) {
   usort($persons, "_fhd_cmp_persons");
   $persons = array_slice($persons, 0, 15);
   foreach ($persons as $person) {
-    $matches[$person->name . '____' . $person->pid] = check_plain($person->name) . " b. " . date('Y', $person->birth_date);
+    $matches[$person->name . '____' . $person->pid] = check_plain($person->name) . " b. " . adodb_date('Y', $person->birth_date);
   }
   if (module_exists('devel')) {
     $GLOBALS['devel_shutdown'] = FALSE;
