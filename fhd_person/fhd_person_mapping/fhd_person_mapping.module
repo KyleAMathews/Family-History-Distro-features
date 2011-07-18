@@ -192,6 +192,46 @@ function fhd_person_not_tagged() {
   return "<h2>" . count($items) . " pages left to tag!</h2><br />" . theme('item_list', array('items' => $items, 'The title!!!', 'ul'));
 }
 
+/************************
+ *** Views Integration
+ ************************/
+function fhd_person_mapping_views_data() {
+  $data['fhd_content_person_mapping']['table']['group'] = t('Person');
+  $data['fhd_content_person_mapping']['table']['join'] = array(
+    'node' => array(
+      'left_field' => 'nid',
+      'field' => 'nid',
+    ),
+  );
+  $data['fhd_content_person_mapping']['pid'] = array(
+    'title' => t('Person ID'),
+    'help' => t('The Person ID of the field'),
+    'field' => array(
+      'handler' => 'views_handler_field',
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_numeric',
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+    'argument' => array(
+      'handler' => 'views_handler_argument_numeric',
+    ),
+  );
+  $data['fhd_content_person_mapping']['nid'] = array(
+    'title' => t('Node'),
+    'help' => t('The node ID of the mapped node'),
+    'relationship' => array(
+      'label' => t('Person'),
+      'base' => 'node',
+      'base field' => 'nid',
+      'handler' => 'views_handler_relationship',
+    ),
+  );
+  return $data;
+}
+
 /****************************
  *** API Functions
  ***************************/
