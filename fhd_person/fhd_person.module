@@ -293,3 +293,14 @@ function safestrtotime($strInput)
     }
     return $iVal;
 }
+
+
+/**
+ * Implementation of hook_views_pre_render().
+ **/
+function fhd_person_views_pre_render(&$view) {
+  // Override the person page's Title with the name of the person.
+  if ($view->name == "person_page_views") {
+    drupal_set_title($view->result[0]->fhd_person_name);
+  }
+}
