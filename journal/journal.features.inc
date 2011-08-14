@@ -41,14 +41,6 @@ function journal_node_info() {
       'title_label' => t('Title'),
       'help' => '',
     ),
-    'journal_entry' => array(
-      'name' => t('Journal Entry'),
-      'base' => 'node_content',
-      'description' => t('For a single day\'s journal entry'),
-      'has_title' => '1',
-      'title_label' => t('Title'),
-      'help' => '',
-    ),
   );
   return $items;
 }
