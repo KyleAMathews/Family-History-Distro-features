@@ -57,6 +57,7 @@ function fhd_person_mapping_theme() {
 }
 
 function template_preprocess_fhd_person_mapping_block(&$vars) {
+  global $user;
   $person = $vars['person'];
 
   $vars['person_link'] = l($person->name, 'person/' . $person->pid);
@@ -156,19 +157,27 @@ function _fhd_person_mapping_related_person($nid) {
 
 function fhd_person_mapping_autocomplete() {
   $node = menu_get_object();
-  $form['person_field'] = array(
-    '#prefix' => _fhd_person_mapping_related_person($node->nid) . '<div class="container-inline"><h3>Add person</h3>',
-    '#type' => 'textfield',
-    '#size' => '35',
-    '#default_value' => '',
-    '#autocomplete_path' => 'fhd-person-mapping/autocomplete',
-    '#required' => TRUE,
-  );
-  $form['submit'] = array(
-    '#type' => 'submit',
-    '#value' => t('Add'),
-    '#suffix' => '</div>',
-  );
+  global $user;
+
+  $form = array();
+  $form['#prefix'] = _fhd_person_mapping_related_person($node->nid);
+
+  // If this a node and the user is logged in, add form elements to add new persons mapped to content.
+  if (!empty($node->nid) && user_access('adminster content-person mappings')) {
+    $form['person_field'] = array(
+      '#prefix' => '<div class="add-person"><h3>Add person</h3>',
+      '#type' => 'textfield',
+      '#size' => '35',
+      '#default_value' => '',
+      '#autocomplete_path' => 'fhd-person-mapping/autocomplete',
+      '#required' => TRUE,
+    );
+    $form['submit'] = array(
+      '#type' => 'submit',
+      '#value' => t('Add'),
+      '#suffix' => '</div>',
+    );
+  }
 
   return $form;
 }
@@ -232,6 +241,15 @@ function fhd_person_mapping_views_data() {
   return $data;
 }
 
+function fhd_person_mapping_permission() {
+  return array(
+    'adminster content-person mappings' => array(
+      'title' => t('Administer mappings between content and people'), 
+      'description' => t('Permission to create and delete mappings between a person and content.'),
+    ),
+  );
+}
+
 /****************************
  *** API Functions
  ***************************/
@@ -240,12 +258,14 @@ function fhd_person_mapping_views_data() {
  * Create new mapping.
  */
 function fhd_person_mapping_create($nid, $pid) {
-  return db_insert('fhd_content_person_mapping')
-    ->fields(array(
-      'nid' => $nid,
-      'pid' => $pid,
-    ))
-    ->execute();
+  if (user_access('adminster content-person mappings')) {
+    return db_insert('fhd_content_person_mapping')
+      ->fields(array(
+        'nid' => $nid,
+        'pid' => $pid,
+      ))
+      ->execute();
+  }
 }
 
 /**
@@ -263,17 +283,21 @@ function fhd_person_mapping_load($nid) {
  * Delete mappings related to a nid.
  */
 function fhd_person_mapping_delete_nid($nid) {
-  return db_delete('fhd_content_person_mapping')
-    ->condition('nid', $nid)
-    ->execute();
+  if (user_access('adminster content-person mappings')) {
+    return db_delete('fhd_content_person_mapping')
+      ->condition('nid', $nid)
+      ->execute();
+  }
 }
 
 /**
  * Delete a nid/pid mapping.
  */
 function fhd_person_mapping_delete($nid, $pid) {
-  return db_delete('fhd_content_person_mapping')
-    ->condition('nid', $nid)
-    ->condition('pid', $pid)
-    ->execute();
+  if (user_access('adminster content-person mappings')) {
+    return db_delete('fhd_content_person_mapping')
+      ->condition('nid', $nid)
+      ->condition('pid', $pid)
+      ->execute();
+  }
 }

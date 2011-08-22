@@ -6,5 +6,7 @@
   <?php if (!empty($death_string)): ?>
     <strong>Died:</strong> <?php print $death_string; ?>
   <?php endif; ?>
-  <span data-nid="<?php print $nid; ?>" data-pid="<?php print $person->pid; ?>" class="remove-referenced-person" title="Remove this referenced person">x<span>
+  <?php if (user_access('adminster content-person mappings')): ?>
+    <span data-nid="<?php print $nid; ?>" data-pid="<?php print $person->pid; ?>" class="remove-referenced-person" title="Remove this referenced person">x<span>
+  <?php endif; ?>
 </div>
