@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Test moduel for the entity API.
+ * Test module for the entity API.
  */
 
 include_once('fhd_person.features.inc');
