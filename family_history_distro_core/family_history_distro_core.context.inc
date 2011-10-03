@@ -83,18 +83,6 @@ function family_history_distro_core_context_default_contexts() {
           'region' => 'content',
           'weight' => '-10',
         ),
-        'menu-menu-content-types' => array(
-          'module' => 'menu',
-          'delta' => 'menu-content-types',
-          'region' => 'header',
-          'weight' => '-10',
-        ),
-        'boxes-content_type_menu' => array(
-          'module' => 'boxes',
-          'delta' => 'content_type_menu',
-          'region' => 'header',
-          'weight' => '-10',
-        ),
         'search-form' => array(
           'module' => 'search',
           'delta' => 'form',
