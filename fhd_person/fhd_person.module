@@ -279,15 +279,15 @@ function fhd_person_load_gedcom($file_path) {
  * If the time differences are within 12 hours, then return true.
  */
 function _fhd_person_acceptable_time_diff($entity, $db_p) {
-  if ($entity['burial_date'] - $db_p->burial_date > 43200) {
+  if (abs($entity['burial_date'] - $db_p->burial_date) > 43200) {
     echo "big time diff in burial date \n";
     return false;
   }
-  else if ($entity['death_date'] - $db_p->death_date > 43200) {
+  else if (abs($entity['death_date'] - $db_p->death_date) > 43200) {
     echo "big time diff in death date \n";
     return false;
   }
-  else if ($entity['birth_date'] - $db_p->birth_date > 43200) {
+  else if (abs($entity['birth_date'] - $db_p->birth_date) > 43200) {
     echo "big time diff in birth date \n";
     return false;
   }
@@ -333,7 +333,7 @@ function _fhd_get_date($str) {
 function safestrtotime($strInput)
 {
     $iVal = -1;
-    for ($i=1100; $i<=1969; $i++)
+    for ($i=1000; $i<=1969; $i++)
     {
         // Check for this year string in date
         $strYear = (string)$i;
