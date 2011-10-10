@@ -237,7 +237,7 @@ function fhd_person_load_gedcom($file_path) {
 
     // If this person isn't in the database, save.
     if (!array_key_exists($entity['gedcom_id'], $db_persons)) {
-      echo "Creating entity for: " . $db_p->name;
+      echo "Creating entity for: " . $entity['name'] . "\n";
       entity_save('fhd_person', $entity);
     }
     // Else check if there's any changes.
