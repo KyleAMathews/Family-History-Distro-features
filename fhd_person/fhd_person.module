@@ -224,7 +224,8 @@ function fhd_person_load_gedcom($file_path) {
      'gedcom_id' => $person->Identifier,
     );
 
-    // Gedcom parser erroneously duplicates birth info into death/burial.
+    // Gedcom parser duplicates birth info into death/burial if they are empty.
+    // So check that death and burial aren't the same day.
     if ($person->Death['Date'] != $person->Birth['Date']) {
       $entity['death_date'] = _fhd_get_date($person->Death['Date']);
       $entity['death_place'] = utf8_encode($person->Death['Place']);
@@ -236,13 +237,13 @@ function fhd_person_load_gedcom($file_path) {
 
     // If this person isn't in the database, save.
     if (!array_key_exists($entity['gedcom_id'], $db_persons)) {
+      echo "Creating entity for: " . $db_p->name;
       entity_save('fhd_person', $entity);
     }
     // Else check if there's any changes.
     else {
       // Compare hashes.
       $entity_str = implode('', $entity);
-      $db_p = $db_persons[$entity['gedcom_id']];
       // Dates are being saved as 0 which messes up our hashing.
       if ($db_p->burial_date == "0") {
         $db_p->burial_date = "";
@@ -264,8 +265,9 @@ function fhd_person_load_gedcom($file_path) {
           continue;
         }
         // Update entity.
-        echo "We should update info on " . $db_p->name . "\n";
-        entity_save('fhd_person', $entity);
+        echo "Updating info on " . $db_p->name . "\n";
+        $entity['pid'] = $db_p->pid;
+        drupal_write_record('fhd_person', $entity, 'pid');
       }
     }
   }
