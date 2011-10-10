@@ -203,7 +203,19 @@ function fhd_person_load_gedcom($file_path) {
 
   $ged = new Genealogy_Gedcom($file_path);
   $persons = $ged->GedcomIndividualsTreeObjects;
+
+  $count = 0;
   foreach ($persons as $person) {
+    // Provide running count of the import.
+    if ($count % 500 === 0 && $count !== 0) {
+      echo "\n";
+      echo "===== Processed " . $count . " records";
+      echo "\n";
+    }
+    $count++;
+
+    $db_p = $db_persons[$person->Identifier];
+
     $entity = array(
       'name' => fixEncoding(trim($person->Firstname) . " " . trim($person->Lastname)),
      'birth_date' => _fhd_get_date($person->Birth['Date']),
