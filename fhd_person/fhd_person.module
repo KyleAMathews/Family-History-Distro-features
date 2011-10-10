@@ -183,13 +183,26 @@ class FhdPersonController extends EntityAPIController {
    }
 }
 
+/*
+ * If the person isn't already in the database, add a new entity,
+ * otherwise, check if the information has changed by comparing a hash of the
+ * two datasets. If the information has changed then update the database.
+ */
 function fhd_person_load_gedcom($file_path) {
   date_default_timezone_set(variable_get('date_default_timezone', 'America/Denver'));
   require_once 'Genealogy/Gedcom.php';
 
+  timer_start('ged');
+
+  // Load all Gedcom info in the Database.
+  $results = db_query("SELECT * FROM {fhd_person}");
+  $db_persons = array();
+  foreach ($results as $row) {
+    $db_persons[$row->gedcom_id] = $row;
+  }
+
   $ged = new Genealogy_Gedcom($file_path);
   $persons = $ged->GedcomIndividualsTreeObjects;
-
   foreach ($persons as $person) {
     $entity = array(
       'name' => fixEncoding(trim($person->Firstname) . " " . trim($person->Lastname)),
@@ -199,7 +212,7 @@ function fhd_person_load_gedcom($file_path) {
      'gedcom_id' => $person->Identifier,
     );
 
-    // Gedcom parser erroneously duplicates birth info into death/burial
+    // Gedcom parser erroneously duplicates birth info into death/burial.
     if ($person->Death['Date'] != $person->Birth['Date']) {
       $entity['death_date'] = _fhd_get_date($person->Death['Date']);
       $entity['death_place'] = utf8_encode($person->Death['Place']);
@@ -209,7 +222,63 @@ function fhd_person_load_gedcom($file_path) {
       $entity['burial_place'] = utf8_encode($person->Burial['Place']);
     }
 
-    //entity_save('fhd_person', $entity);
+    // If this person isn't in the database, save.
+    if (!array_key_exists($entity['gedcom_id'], $db_persons)) {
+      entity_save('fhd_person', $entity);
+    }
+    // Else check if there's any changes.
+    else {
+      // Compare hashes.
+      $entity_str = implode('', $entity);
+      $db_p = $db_persons[$entity['gedcom_id']];
+      // Dates are being saved as 0 which messes up our hashing.
+      if ($db_p->burial_date == "0") {
+        $db_p->burial_date = "";
+      }
+      if ($db_p->death_date == "0") {
+        $db_p->death_date = "";
+      }
+      if ($db_p->birth_date == "0") {
+        $db_p->birth_date = "";
+      }
+      $person_str = $db_p->name . $db_p->birth_date . $db_p->birth_place . $db_p->sex .
+        $db_p->gedcom_id . $db_p->death_date . $db_p->death_place . $db_p->burial_date .
+        $db_p->burial_place;
+
+      if (sha1($entity_str) !== sha1($person_str)) {
+        // Check how far apart are dates, it seems that PHP's strtodate function
+        // often returns times 20-30 minutes apart.
+        if (_fhd_person_acceptable_time_diff($entity, $db_p)) {
+          continue;
+        }
+        // Update entity.
+        echo "We should update info on " . $db_p->name . "\n";
+        entity_save('fhd_person', $entity);
+      }
+    }
+  }
+  echo "How long this took: \n";
+  print_r(timer_stop('ged'));
+}
+
+/*
+ * If the time differences are within 12 hours, then return true.
+ */
+function _fhd_person_acceptable_time_diff($entity, $db_p) {
+  if ($entity['burial_date'] - $db_p->burial_date > 43200) {
+    echo "big time diff in burial date \n";
+    return false;
+  }
+  else if ($entity['death_date'] - $db_p->death_date > 43200) {
+    echo "big time diff in death date \n";
+    return false;
+  }
+  else if ($entity['birth_date'] - $db_p->birth_date > 43200) {
+    echo "big time diff in birth date \n";
+    return false;
+  }
+  else {
+    return true;
   }
 }
 
@@ -230,7 +299,7 @@ function _fhd_get_date($str) {
   }
   else{
     // Trim off "Abt" or other odd charecters that slip in
-    $str = trim($str, ' Aabt<>');
+    $str = trim($str, ' Aabt<>Bef');
     // Sometimes there's a date range, just grab the first.
     $str = array_pop(explode('-',$str));
 
@@ -239,7 +308,9 @@ function _fhd_get_date($str) {
       return $timestamp;
     }
     else {
-      echo "the string " . $str . " is bogus\n";
+      if (!empty($str)) {
+        echo "the string " . $str . " is bogus\n";
+      }
       return '';
     }
   }
