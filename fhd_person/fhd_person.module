@@ -333,7 +333,7 @@ function _fhd_get_date($str) {
 function safestrtotime($strInput)
 {
     $iVal = -1;
-    for ($i=1500; $i<=1969; $i++)
+    for ($i=1100; $i<=1969; $i++)
     {
         // Check for this year string in date
         $strYear = (string)$i;
