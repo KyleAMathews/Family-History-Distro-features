@@ -225,7 +225,7 @@ function fhd_person_load_gedcom($file_path) {
     );
 
     // Gedcom parser duplicates birth info into death/burial if they are empty.
-    // So check that death and burial aren't the same day.
+    // So check that death and burial aren't the same.
     if ($person->Death['Date'] != $person->Birth['Date']) {
       $entity['death_date'] = _fhd_get_date($person->Death['Date']);
       $entity['death_place'] = utf8_encode($person->Death['Place']);
@@ -266,8 +266,10 @@ function fhd_person_load_gedcom($file_path) {
         }
         // Update entity.
         echo "Updating info on " . $db_p->name . "\n";
-        $entity['pid'] = $db_p->pid;
-        drupal_write_record('fhd_person', $entity, 'pid');
+        db_update('fhd_person')
+          ->fields($entity)
+          ->condition('pid', $db_p->pid)
+          ->execute();
       }
     }
   }
@@ -325,7 +327,7 @@ function _fhd_get_date($str) {
       if (!empty($str)) {
         echo "the string " . $str . " is bogus\n";
       }
-      return '';
+      return NULL;
     }
   }
 }
@@ -387,7 +389,8 @@ function fhd_person_views_pre_render(&$view) {
   // Override the person page's Title with the name of the person.
   if ($view->name == "person_page_views") {
     $birth_year = "";
-    if (!empty($view->result[0]->fhd_person_birth_date)) {
+    $birth_date = $view->result[0]->fhd_person_birth_date;
+    if (!empty($birth_date)) {
       $birth_year = adodb_date("Y", $view->result[0]->fhd_person_birth_date);
     }
 
