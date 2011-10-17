@@ -8,7 +8,7 @@ class exports.HomeView extends Backbone.View
     app.models.editing.bind('change', @render)
 
   render: =>
-    $(@el).html homeTemplate(
+    jQuery(@el).html homeTemplate(
       editing: app.models.editing
       stats: app.models.stats
     )
@@ -21,7 +21,7 @@ class exports.HomeView extends Backbone.View
     'click #save': 'save'
 
   loadNew: =>
-    $.getJSON 'http://fhd-staging.eduglu.com/drupal-edit/next', (data, textStatus, jqXHR) =>
+    jQuery.getJSON 'http://fhd-staging.eduglu.com/drupal-edit/next', (data, textStatus, jqXHR) =>
       # Change all H1s to H2s
       changeh1Toh2 = /^#{1}\s/gm
       data.markdown = data.markdown.replace(changeh1Toh2, '## ')
@@ -38,20 +38,20 @@ class exports.HomeView extends Backbone.View
       console.log data
 
   removeEndLines: ->
-    text = $('#body')[0]
+    text = jQuery('#body')[0]
     lineEndings = /(\S)\n/gm
 
-    window.selectedText = $(text).val().substring(text.selectionStart, text.selectionEnd)
+    window.selectedText = jQuery(text).val().substring(text.selectionStart, text.selectionEnd)
 
     # For each blank line, make it two spaces so that when we remove line
     # endings, there'll still be a line break there.
     selectedText = window.selectedText.replace(/^\n/gm, "\n\n")
     selectedText = selectedText.replace(lineEndings, '$1 ')
     # console.log selectedText
-    $(text).val(
-          $(text).val().substring(0, text.selectionStart) +
+    jQuery(text).val(
+          jQuery(text).val().substring(0, text.selectionStart) +
           selectedText +
-          $(text).val().substring(text.selectionEnd)
+          jQuery(text).val().substring(text.selectionEnd)
     )
     renderMarkdown()
 
@@ -64,7 +64,7 @@ class exports.HomeView extends Backbone.View
       title: app.models.editing.get('title')
       body: app.models.editing.get('body')
 
-    $.post 'http://fhd-staging.eduglu.com/drupal-edit/save', node
+    jQuery.post 'http://fhd-staging.eduglu.com/drupal-edit/save', node
 
-    $('#tools').append('<span class="success">Node saved</span>')
-    setTimeout (-> $('#tools .success').fadeOut()), 5000
+    jQuery('#tools').append('<span class="success">Node saved</span>')
+    setTimeout (-> jQuery('#tools .success').fadeOut()), 5000

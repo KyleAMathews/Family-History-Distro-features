@@ -6,6 +6,6 @@ class exports.StatsView extends Backbone.View
     app.models.stats.bind('change', @render)
 
   render: =>
-    $(@el).html statsTemplate(app.models.stats)
+    jQuery(@el).html statsTemplate(app.models.stats)
     console.log 'rendering stats!'
     @
