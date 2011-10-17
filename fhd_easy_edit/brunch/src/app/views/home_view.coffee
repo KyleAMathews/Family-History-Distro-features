@@ -63,8 +63,8 @@ class exports.HomeView extends Backbone.View
   save: =>
     node =
       nid: app.models.editing.get('nid')
-      title: app.models.editing.get('title')
-      body: app.models.editing.get('body')
+      title: jQuery('#title').val()
+      body: jQuery('#body').val()
 
     jQuery.post 'http://fhd-staging.eduglu.com/drupal-edit/save', node
 
