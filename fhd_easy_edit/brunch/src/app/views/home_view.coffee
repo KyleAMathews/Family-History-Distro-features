@@ -21,7 +21,7 @@ class exports.HomeView extends Backbone.View
     'click #save': 'save'
 
   loadNew: =>
-    $.getJSON 'http://localhost/family_march5/drupal-edit/next', (data, textStatus, jqXHR) =>
+    $.getJSON 'http://fhd-staging.eduglu.com/drupal-edit/next', (data, textStatus, jqXHR) =>
       # Change all H1s to H2s
       changeh1Toh2 = /^#{1}\s/gm
       data.markdown = data.markdown.replace(changeh1Toh2, '## ')
@@ -64,7 +64,7 @@ class exports.HomeView extends Backbone.View
       title: app.models.editing.get('title')
       body: app.models.editing.get('body')
 
-    $.post 'http://localhost/family_march5/drupal-edit/save', node
+    $.post 'http://fhd-staging.eduglu.com/drupal-edit/save', node
 
     $('#tools').append('<span class="success">Node saved</span>')
     setTimeout (-> $('#tools .success').fadeOut()), 5000
