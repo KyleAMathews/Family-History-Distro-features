@@ -26,6 +26,8 @@ class exports.HomeView extends Backbone.View
       changeh1Toh2 = /^#{1}\s/gm
       data.markdown = data.markdown.replace(changeh1Toh2, '## ')
 
+      jQuery('#tools .success').hide()
+
       app.models.stats.set( remaining: data.remaining, { silent: true } )
       app.models.stats.set( completed: data.completed )
       app.models.stats.set( completed_count: data.completed_count )
@@ -67,4 +69,3 @@ class exports.HomeView extends Backbone.View
     jQuery.post 'http://fhd-staging.eduglu.com/drupal-edit/save', node
 
     jQuery('#tools').append('<span class="success">Node saved</span>')
-    setTimeout (-> jQuery('#tools .success').fadeOut()), 5000
