@@ -1,0 +1,26 @@
+<div id='stats'>
+  <strong>Remaining: </strong><%- @stats.get('remaining') %><br />
+  <strong>You've completed (<%- @stats.get('completed_count') %>)</strong>
+  <ul>
+    <% for id,link of @stats.get('completed'): %>
+      <li><%- link.link %></li>
+    <% end %>
+  </ul>
+</div>
+
+<div id="edit">
+  <div id="tools">
+    <button id="new">Load new</button>
+    <button id="clean">remove line endings</button>
+    <button id="render">Render Markdown</button>
+    <button id="save">save</button>
+  </div>
+  <br />Original link: <span id="original-link"><%- @editing.get('link') %></span>
+  <input type="text" id="title" value="<%= @editing.get('title') %>" />
+
+<textarea id="body">
+<%- @editing.get('body') %>
+</textarea>
+</div>
+
+<div id="markdown"></div>

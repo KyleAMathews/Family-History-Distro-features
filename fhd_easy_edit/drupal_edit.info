@@ -1,0 +1,4 @@
+name = Drupal Edit
+description = Provides JSON to edit nodes yo
+core = 7.x
+
