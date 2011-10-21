@@ -61,8 +61,12 @@ function template_preprocess_fhd_person_mapping_block(&$vars) {
   $person = $vars['person'];
 
   $vars['person_link'] = l($person->name, 'person/' . $person->pid);
-  $vars['birth_string'] = adodb_date('Y', $person->birth_date) . ' ' . check_plain($person->birth_place);
-  $vars['death_string'] = adodb_date('Y', $person->death_date) . ' ' . check_plain($person->death_place);
+  if (!empty($person->birth_date)) {
+    $vars['birth_string'] = adodb_date('Y', $person->birth_date) . ' ' . check_plain($person->birth_place);
+  }
+  if (!empty($person->death_date)) {
+    $vars['death_string'] = adodb_date('Y', $person->death_date) . ' ' . check_plain($person->death_place);
+  }
 }
 
 function _fhd_person_mapping_ajax_callback() {
@@ -78,7 +82,7 @@ function _fhd_person_mapping_ajax_callback() {
 }
 
 /**
- * @todo Create a searchable column so we can do fulltext search.
+ * @todo Create a searchable column so we can do fulltext search. http://drupal.org/node/1317404
  **/
 function _fhd_person_mapping_autocomplete($string) {
   $matches = array();
