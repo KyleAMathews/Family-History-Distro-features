@@ -1,0 +1,4 @@
+name = FHD Node Access
+description = Limit access to nodes associated with alive people.
+core = 7.x
+files[] = fhd_node_access.module

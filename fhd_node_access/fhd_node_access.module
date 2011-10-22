@@ -1,0 +1,58 @@
+<?php
+
+/**
+ * Implment hook_node_access_records().
+ */
+
+function fhd_node_access_node_access_records($node) {
+  $grants = array();
+
+  // Query for nodes that are associated with someone who is still alive.
+  // An alive person is defined as someone who doesn't have a death_date, has
+  // a birth_date, and their birth_date was more than 100 years ago.
+  $sql = "SELECT m.nid
+    FROM fhd_person f
+    INNER JOIN fhd_content_person_mapping m
+    ON f.pid = m.pid
+    WHERE m.nid = :nid
+    AND (f.death_date IS NULL OR f.death_date = 0)
+    AND (f.birth_date IS NOT NULL OR f.birth_date != 0)
+    AND f.birth_date > (Unix_timestamp() - 3153600000)";
+  $result = count(db_query($sql, array(':nid' => $node->nid))->fetchAll());
+
+  if (empty($result)) {
+    // If there's nothing in the database, this means that there's no restrictions
+    // so anonymous folks can view (but not update or delete) the content.
+    $grants[] = array(
+      'realm' => 'fhd_node_access',
+      'gid' => 0,
+      'grant_view' => 1,
+      'grant_update' => 0,
+      'grant_delete' => 0,
+      'priority' => 0,
+    );
+  }
+  // Add grant for authenticated folks -- they can see everything, always.
+  $grants[] = array(
+    'realm' => 'fhd_node_access',
+    'gid' => 1,
+    'grant_view' => 1,
+    'grant_update' => 1,
+    'grant_delete' => 1,
+    'priority' => 0,
+  );
+
+  return $grants;
+}
+
+function fhd_node_access_node_grants($account, $op) {
+  // if user isn't anonymous then give them the authenticated person grant.
+  if ($account->uid != 0) {
+    $grants['fhd_node_access'][] = 1;
+    return $grants;
+  }
+  else {
+    $grants['fhd_node_access'][] = 0;
+    return $grants;
+  }
+}
