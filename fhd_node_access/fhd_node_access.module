@@ -1,7 +1,13 @@
 <?php
 
+define("ANONYMOUS_ACCCESS", 0);
+define("AUTHENTICATED_ACCCESS", 1);
+
 /**
  * Implment hook_node_access_records().
+ *
+ * Define the two node access realms. One for anonymous visitors and the other
+ * for authenticated users.
  */
 
 function fhd_node_access_node_access_records($node) {
@@ -20,22 +26,33 @@ function fhd_node_access_node_access_records($node) {
     AND f.birth_date > (Unix_timestamp() - 3153600000)";
   $result = count(db_query($sql, array(':nid' => $node->nid))->fetchAll());
 
+  // Check if an admin user has set this node to have restricted access.
+  $restricted = db_query("SELECT nid FROM fhd_node_access WHERE nid = :nid",
+    array(':nid' => $node->nid))->fetchObject();
+
+  // If an admin has set this node as restricted, override the results from the
+  // previous query.
+  if (!empty($restricted)) {
+    $result = $restricted;
+  }
+
   if (empty($result)) {
     // If there's nothing in the database, this means that there's no restrictions
     // so anonymous folks can view (but not update or delete) the content.
     $grants[] = array(
       'realm' => 'fhd_node_access',
-      'gid' => 0,
+      'gid' => ANONYMOUS_ACCCESS,
       'grant_view' => 1,
       'grant_update' => 0,
       'grant_delete' => 0,
       'priority' => 0,
     );
   }
+
   // Add grant for authenticated folks -- they can see everything, always.
   $grants[] = array(
     'realm' => 'fhd_node_access',
-    'gid' => 1,
+    'gid' => AUTHENTICATED_ACCCESS,
     'grant_view' => 1,
     'grant_update' => 1,
     'grant_delete' => 1,
@@ -45,14 +62,81 @@ function fhd_node_access_node_access_records($node) {
   return $grants;
 }
 
+/*
+ * Implementation of hook_node_grants().
+ *
+ * This hook is called when a node is loaded. We return here the node access realms
+ * that the user has access to. These correspond to the realms we define.
+ * If the user is anonymous, then they only have access to the anonymous realm.
+ */
 function fhd_node_access_node_grants($account, $op) {
   // if user isn't anonymous then give them the authenticated person grant.
   if ($account->uid != 0) {
-    $grants['fhd_node_access'][] = 1;
+    $grants['fhd_node_access'][] = AUTHENTICATED_ACCCESS;
     return $grants;
   }
   else {
-    $grants['fhd_node_access'][] = 0;
+    $grants['fhd_node_access'][] = ANONYMOUS_ACCCESS;
     return $grants;
+  }
+}
+
+
+/**
+ * Implementation of hook_form_alter()
+ *
+ * Modify the node edit form to add a checkbox so content editors can choose
+ * to restrict access to a node.
+ */
+function fhd_node_access_form_alter(&$form, $form_state, $form_id) {
+  switch ($form_id) {
+    case 'story_node_form':
+      $value = ANONYMOUS_ACCCESS;
+      // Pull record from DB if there is none.
+      if (!empty($form['nid']['#value'])) {
+        $nid = $form['nid']['#value'];
+        if (db_query("SELECT nid FROM fhd_node_access WHERE nid = :nid",
+          array(':nid' => $nid))->fetchObject()) {
+            $value = AUTHENTICATED_ACCCESS;
+        }
+      }
+      $form['fhd_node_access_pre_value'] = array(
+        '#type' => 'value',
+        '#value' => $value);
+      $form['options']['fhd_node_access'] = array(
+        '#type' => 'checkbox',
+        '#title' => 'Restrict access to registered site members.',
+        '#default_value' => $value,
+      );
+  }
+}
+
+/**
+ * Implementation of hook_node_submit().
+ *
+ * On submitting the node, save any changes to the node access setting to the
+ * database.
+ */
+function fhd_node_access_node_submit($node, $form, &$form_state) {
+  // Update settings in the DB.
+  $pre_value = $form_state['values']['fhd_node_access_pre_value'];
+  $post_value = $form_state['values']['fhd_node_access'];
+
+  // If nothing has changed, return.
+  if ($pre_value === $post_value) { return; }
+
+  // If changed to restricted.
+  if ($pre_value !== $post_value && $post_value === AUTHENTICATED_ACCCESS) {
+    db_insert('fhd_node_access')
+      ->fields(array(
+        'nid' => $node->nid,
+      ))
+      ->execute();
+  }
+  // If changed to not restricted, delete the record.
+  else {
+    db_delete('fhd_node_access')
+      ->condition('nid', $node->nid)
+      ->execute();
   }
 }

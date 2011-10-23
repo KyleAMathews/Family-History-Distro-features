@@ -1,0 +1,28 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the fhd_node_access module.
+ */
+
+/**
+ * Implement hook_schema().
+ */
+function fhd_node_access_schema() {
+  $schema['fhd_node_access'] = array(
+    'description' => 'Record nodes that admins say should be hidden',
+    'fields' => array(
+      'nid' => array(
+        'description' => 'The nid of the node to be hidden',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+    ),
+    'primary key' => array('nid'),
+  );
+
+  return $schema;
+}
+
