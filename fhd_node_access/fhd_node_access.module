@@ -89,25 +89,24 @@ function fhd_node_access_node_grants($account, $op) {
  * to restrict access to a node.
  */
 function fhd_node_access_form_alter(&$form, $form_state, $form_id) {
-  switch ($form_id) {
-    case 'story_node_form':
-      $value = ANONYMOUS_ACCCESS;
-      // Pull record from DB if there is none.
-      if (!empty($form['nid']['#value'])) {
-        $nid = $form['nid']['#value'];
-        if (db_query("SELECT nid FROM fhd_node_access WHERE nid = :nid",
-          array(':nid' => $nid))->fetchObject()) {
-            $value = AUTHENTICATED_ACCCESS;
-        }
+  if (strpos($form_id, 'node_form') !== FALSE) {
+    $value = ANONYMOUS_ACCCESS;
+    // Pull record from DB if there is none.
+    if (!empty($form['nid']['#value'])) {
+      $nid = $form['nid']['#value'];
+      if (db_query("SELECT nid FROM fhd_node_access WHERE nid = :nid",
+        array(':nid' => $nid))->fetchObject()) {
+          $value = AUTHENTICATED_ACCCESS;
       }
-      $form['fhd_node_access_pre_value'] = array(
-        '#type' => 'value',
-        '#value' => $value);
-      $form['options']['fhd_node_access'] = array(
-        '#type' => 'checkbox',
-        '#title' => 'Restrict access to registered site members.',
-        '#default_value' => $value,
-      );
+    }
+    $form['fhd_node_access_pre_value'] = array(
+      '#type' => 'value',
+      '#value' => $value);
+    $form['options']['fhd_node_access'] = array(
+      '#type' => 'checkbox',
+      '#title' => 'Restrict access to registered site members.',
+      '#default_value' => $value,
+    );
   }
 }
 
