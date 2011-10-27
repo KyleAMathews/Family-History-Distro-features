@@ -1,3 +1,0 @@
-Module needs:
-- Table to store nodes which are arbitraily blocked.
-- Restrict delete permission to admins. Which is how it works already -- will the node access stuff change this any?
