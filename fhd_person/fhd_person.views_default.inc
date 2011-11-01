@@ -5,7 +5,7 @@
  */
 
 /**
- * Implementation of hook_views_default_views().
+ * Implements hook_views_default_views().
  */
 function fhd_person_views_default_views() {
   $export = array();
@@ -27,6 +27,7 @@ function fhd_person_views_default_views() {
   $handler->display->display_options['cache']['type'] = 'none';
   $handler->display->display_options['query']['type'] = 'views_query';
   $handler->display->display_options['query']['options']['distinct'] = TRUE;
+  $handler->display->display_options['query']['options']['query_comment'] = FALSE;
   $handler->display->display_options['exposed_form']['type'] = 'basic';
   $handler->display->display_options['pager']['type'] = 'full';
   $handler->display->display_options['pager']['options']['items_per_page'] = '100';
@@ -45,10 +46,10 @@ function fhd_person_views_default_views() {
   $handler->display->display_options['fields']['title']['alter']['alter_text'] = 0;
   $handler->display->display_options['fields']['title']['alter']['make_link'] = 0;
   $handler->display->display_options['fields']['title']['alter']['absolute'] = 0;
-  $handler->display->display_options['fields']['title']['alter']['trim'] = 0;
   $handler->display->display_options['fields']['title']['alter']['word_boundary'] = 0;
   $handler->display->display_options['fields']['title']['alter']['ellipsis'] = 0;
   $handler->display->display_options['fields']['title']['alter']['strip_tags'] = 0;
+  $handler->display->display_options['fields']['title']['alter']['trim'] = 0;
   $handler->display->display_options['fields']['title']['alter']['html'] = 0;
   $handler->display->display_options['fields']['title']['hide_empty'] = 0;
   $handler->display->display_options['fields']['title']['empty_zero'] = 0;
@@ -152,26 +153,6 @@ if (!empty($arg)) {
   $handler->display->display_options['filters']['type']['value'] = array(
     'obituary' => 'obituary',
   );
-  $translatables['person_content'] = array(
-    t('Master'),
-    t('Autobiographies'),
-    t('more'),
-    t('Apply'),
-    t('Reset'),
-    t('Sort by'),
-    t('Asc'),
-    t('Desc'),
-    t('Items per page'),
-    t('- All -'),
-    t('Offset'),
-    t('Person'),
-    t('All'),
-    t('Person Stories Block'),
-    t('Stories'),
-    t('Person Autobiographies Block'),
-    t('Person Obituaries Block'),
-    t('Obituaries'),
-  );
   $export['person_content'] = $view;
 
   $view = new view;
@@ -190,6 +171,7 @@ if (!empty($arg)) {
   $handler->display->display_options['access']['type'] = 'none';
   $handler->display->display_options['cache']['type'] = 'none';
   $handler->display->display_options['query']['type'] = 'views_query';
+  $handler->display->display_options['query']['options']['query_comment'] = FALSE;
   $handler->display->display_options['exposed_form']['type'] = 'basic';
   $handler->display->display_options['pager']['type'] = 'full';
   $handler->display->display_options['pager']['options']['items_per_page'] = '1';
@@ -205,11 +187,11 @@ if (!empty($arg)) {
   $handler->display->display_options['fields']['name_1']['alter']['absolute'] = 0;
   $handler->display->display_options['fields']['name_1']['alter']['external'] = 0;
   $handler->display->display_options['fields']['name_1']['alter']['replace_spaces'] = 0;
-  $handler->display->display_options['fields']['name_1']['alter']['trim'] = 0;
   $handler->display->display_options['fields']['name_1']['alter']['nl2br'] = 0;
   $handler->display->display_options['fields']['name_1']['alter']['word_boundary'] = 1;
   $handler->display->display_options['fields']['name_1']['alter']['ellipsis'] = 1;
   $handler->display->display_options['fields']['name_1']['alter']['strip_tags'] = 0;
+  $handler->display->display_options['fields']['name_1']['alter']['trim'] = 0;
   $handler->display->display_options['fields']['name_1']['alter']['html'] = 0;
   $handler->display->display_options['fields']['name_1']['element_label_colon'] = 0;
   $handler->display->display_options['fields']['name_1']['element_default_classes'] = 1;
@@ -224,11 +206,11 @@ if (!empty($arg)) {
   $handler->display->display_options['fields']['birth_date']['alter']['absolute'] = 0;
   $handler->display->display_options['fields']['birth_date']['alter']['external'] = 0;
   $handler->display->display_options['fields']['birth_date']['alter']['replace_spaces'] = 0;
-  $handler->display->display_options['fields']['birth_date']['alter']['trim'] = 0;
   $handler->display->display_options['fields']['birth_date']['alter']['nl2br'] = 0;
   $handler->display->display_options['fields']['birth_date']['alter']['word_boundary'] = 1;
   $handler->display->display_options['fields']['birth_date']['alter']['ellipsis'] = 1;
   $handler->display->display_options['fields']['birth_date']['alter']['strip_tags'] = 0;
+  $handler->display->display_options['fields']['birth_date']['alter']['trim'] = 0;
   $handler->display->display_options['fields']['birth_date']['alter']['html'] = 0;
   $handler->display->display_options['fields']['birth_date']['element_label_colon'] = 1;
   $handler->display->display_options['fields']['birth_date']['element_default_classes'] = 1;
@@ -244,11 +226,11 @@ if (!empty($arg)) {
   $handler->display->display_options['fields']['birth_place']['alter']['absolute'] = 0;
   $handler->display->display_options['fields']['birth_place']['alter']['external'] = 0;
   $handler->display->display_options['fields']['birth_place']['alter']['replace_spaces'] = 0;
-  $handler->display->display_options['fields']['birth_place']['alter']['trim'] = 0;
   $handler->display->display_options['fields']['birth_place']['alter']['nl2br'] = 0;
   $handler->display->display_options['fields']['birth_place']['alter']['word_boundary'] = 1;
   $handler->display->display_options['fields']['birth_place']['alter']['ellipsis'] = 1;
   $handler->display->display_options['fields']['birth_place']['alter']['strip_tags'] = 0;
+  $handler->display->display_options['fields']['birth_place']['alter']['trim'] = 0;
   $handler->display->display_options['fields']['birth_place']['alter']['html'] = 0;
   $handler->display->display_options['fields']['birth_place']['element_label_colon'] = 1;
   $handler->display->display_options['fields']['birth_place']['element_default_classes'] = 1;
@@ -263,11 +245,11 @@ if (!empty($arg)) {
   $handler->display->display_options['fields']['burial_date']['alter']['absolute'] = 0;
   $handler->display->display_options['fields']['burial_date']['alter']['external'] = 0;
   $handler->display->display_options['fields']['burial_date']['alter']['replace_spaces'] = 0;
-  $handler->display->display_options['fields']['burial_date']['alter']['trim'] = 0;
   $handler->display->display_options['fields']['burial_date']['alter']['nl2br'] = 0;
   $handler->display->display_options['fields']['burial_date']['alter']['word_boundary'] = 1;
   $handler->display->display_options['fields']['burial_date']['alter']['ellipsis'] = 1;
   $handler->display->display_options['fields']['burial_date']['alter']['strip_tags'] = 0;
+  $handler->display->display_options['fields']['burial_date']['alter']['trim'] = 0;
   $handler->display->display_options['fields']['burial_date']['alter']['html'] = 0;
   $handler->display->display_options['fields']['burial_date']['element_label_colon'] = 1;
   $handler->display->display_options['fields']['burial_date']['element_default_classes'] = 1;
@@ -283,11 +265,11 @@ if (!empty($arg)) {
   $handler->display->display_options['fields']['burial_place']['alter']['absolute'] = 0;
   $handler->display->display_options['fields']['burial_place']['alter']['external'] = 0;
   $handler->display->display_options['fields']['burial_place']['alter']['replace_spaces'] = 0;
-  $handler->display->display_options['fields']['burial_place']['alter']['trim'] = 0;
   $handler->display->display_options['fields']['burial_place']['alter']['nl2br'] = 0;
   $handler->display->display_options['fields']['burial_place']['alter']['word_boundary'] = 1;
   $handler->display->display_options['fields']['burial_place']['alter']['ellipsis'] = 1;
   $handler->display->display_options['fields']['burial_place']['alter']['strip_tags'] = 0;
+  $handler->display->display_options['fields']['burial_place']['alter']['trim'] = 0;
   $handler->display->display_options['fields']['burial_place']['alter']['html'] = 0;
   $handler->display->display_options['fields']['burial_place']['element_label_colon'] = 1;
   $handler->display->display_options['fields']['burial_place']['element_default_classes'] = 1;
@@ -302,11 +284,11 @@ if (!empty($arg)) {
   $handler->display->display_options['fields']['death_date']['alter']['absolute'] = 0;
   $handler->display->display_options['fields']['death_date']['alter']['external'] = 0;
   $handler->display->display_options['fields']['death_date']['alter']['replace_spaces'] = 0;
-  $handler->display->display_options['fields']['death_date']['alter']['trim'] = 0;
   $handler->display->display_options['fields']['death_date']['alter']['nl2br'] = 0;
   $handler->display->display_options['fields']['death_date']['alter']['word_boundary'] = 1;
   $handler->display->display_options['fields']['death_date']['alter']['ellipsis'] = 1;
   $handler->display->display_options['fields']['death_date']['alter']['strip_tags'] = 0;
+  $handler->display->display_options['fields']['death_date']['alter']['trim'] = 0;
   $handler->display->display_options['fields']['death_date']['alter']['html'] = 0;
   $handler->display->display_options['fields']['death_date']['element_label_colon'] = 1;
   $handler->display->display_options['fields']['death_date']['element_default_classes'] = 1;
@@ -322,11 +304,11 @@ if (!empty($arg)) {
   $handler->display->display_options['fields']['death_place']['alter']['absolute'] = 0;
   $handler->display->display_options['fields']['death_place']['alter']['external'] = 0;
   $handler->display->display_options['fields']['death_place']['alter']['replace_spaces'] = 0;
-  $handler->display->display_options['fields']['death_place']['alter']['trim'] = 0;
   $handler->display->display_options['fields']['death_place']['alter']['nl2br'] = 0;
   $handler->display->display_options['fields']['death_place']['alter']['word_boundary'] = 1;
   $handler->display->display_options['fields']['death_place']['alter']['ellipsis'] = 1;
   $handler->display->display_options['fields']['death_place']['alter']['strip_tags'] = 0;
+  $handler->display->display_options['fields']['death_place']['alter']['trim'] = 0;
   $handler->display->display_options['fields']['death_place']['alter']['html'] = 0;
   $handler->display->display_options['fields']['death_place']['element_label_colon'] = 1;
   $handler->display->display_options['fields']['death_place']['element_default_classes'] = 1;
@@ -359,29 +341,6 @@ if (!empty($arg)) {
   $handler->display->display_options['arguments']['pid']['break_phrase'] = 0;
   $handler->display->display_options['arguments']['pid']['not'] = 0;
   $handler->display->display_options['path'] = 'person/%';
-  $translatables['person_page_views'] = array(
-    t('Master'),
-    t('Person Page - this is overridden in code w/ the name of the person'),
-    t('more'),
-    t('Apply'),
-    t('Reset'),
-    t('Sort by'),
-    t('Asc'),
-    t('Desc'),
-    t('Items per page'),
-    t('- All -'),
-    t('Offset'),
-    t('Birth_date'),
-    t('.'),
-    t(','),
-    t('Birth_place'),
-    t('Burial_date'),
-    t('Burial_place'),
-    t('Death_date'),
-    t('Death_place'),
-    t('All'),
-    t('Page'),
-  );
   $export['person_page_views'] = $view;
 
   return $export;

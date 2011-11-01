@@ -5,7 +5,7 @@
  */
 
 /**
- * Implementation of hook_context_default_contexts().
+ * Implements hook_context_default_contexts().
  */
 function fhd_person_context_default_contexts() {
   $export = array();
@@ -26,23 +26,11 @@ function fhd_person_context_default_contexts() {
   $context->reactions = array(
     'block' => array(
       'blocks' => array(
-        'views-3a63e1b29233aeb21d9711e931c95510' => array(
-          'module' => 'views',
-          'delta' => '3a63e1b29233aeb21d9711e931c95510',
+        'fhd_person_mapping-fhd_person_tagged_nodes' => array(
+          'module' => 'fhd_person_mapping',
+          'delta' => 'fhd_person_tagged_nodes',
           'region' => 'post_content',
           'weight' => '-10',
-        ),
-        'views-9f29805af21664ad0802ca7760fe888a' => array(
-          'module' => 'views',
-          'delta' => '9f29805af21664ad0802ca7760fe888a',
-          'region' => 'post_content',
-          'weight' => '-9',
-        ),
-        'views-be9095815a1b7d180f379153a2790a12' => array(
-          'module' => 'views',
-          'delta' => 'be9095815a1b7d180f379153a2790a12',
-          'region' => 'post_content',
-          'weight' => '-8',
         ),
       ),
     ),
