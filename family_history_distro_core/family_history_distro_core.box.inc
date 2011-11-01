@@ -5,7 +5,7 @@
  */
 
 /**
- * Implementation of hook_default_box().
+ * Implements hook_default_box().
  */
 function family_history_distro_core_default_box() {
   $export = array();

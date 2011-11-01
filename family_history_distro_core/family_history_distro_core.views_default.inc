@@ -5,7 +5,7 @@
  */
 
 /**
- * Implementation of hook_views_default_views().
+ * Implements hook_views_default_views().
  */
 function family_history_distro_core_views_default_views() {
   $export = array();
@@ -26,12 +26,13 @@ function family_history_distro_core_views_default_views() {
   $handler->display->display_options['access']['type'] = 'perm';
   $handler->display->display_options['cache']['type'] = 'none';
   $handler->display->display_options['query']['type'] = 'views_query';
+  $handler->display->display_options['query']['options']['query_comment'] = FALSE;
   $handler->display->display_options['exposed_form']['type'] = 'basic';
   $handler->display->display_options['pager']['type'] = 'full';
   $handler->display->display_options['pager']['options']['items_per_page'] = '1';
   $handler->display->display_options['style_plugin'] = 'default';
   $handler->display->display_options['row_plugin'] = 'fields';
-  /* Field: Fields: Author or contributor */
+  /* Field: Content: Author or contributor */
   $handler->display->display_options['fields']['field_author_contributor']['id'] = 'field_author_contributor';
   $handler->display->display_options['fields']['field_author_contributor']['table'] = 'field_data_field_author_contributor';
   $handler->display->display_options['fields']['field_author_contributor']['field'] = 'field_author_contributor';
@@ -40,11 +41,11 @@ function family_history_distro_core_views_default_views() {
   $handler->display->display_options['fields']['field_author_contributor']['alter']['absolute'] = 0;
   $handler->display->display_options['fields']['field_author_contributor']['alter']['external'] = 0;
   $handler->display->display_options['fields']['field_author_contributor']['alter']['replace_spaces'] = 0;
-  $handler->display->display_options['fields']['field_author_contributor']['alter']['trim'] = 0;
   $handler->display->display_options['fields']['field_author_contributor']['alter']['nl2br'] = 0;
   $handler->display->display_options['fields']['field_author_contributor']['alter']['word_boundary'] = 1;
   $handler->display->display_options['fields']['field_author_contributor']['alter']['ellipsis'] = 1;
   $handler->display->display_options['fields']['field_author_contributor']['alter']['strip_tags'] = 0;
+  $handler->display->display_options['fields']['field_author_contributor']['alter']['trim'] = 0;
   $handler->display->display_options['fields']['field_author_contributor']['alter']['html'] = 0;
   $handler->display->display_options['fields']['field_author_contributor']['element_label_colon'] = 1;
   $handler->display->display_options['fields']['field_author_contributor']['element_default_classes'] = 1;
@@ -54,7 +55,7 @@ function family_history_distro_core_views_default_views() {
   $handler->display->display_options['fields']['field_author_contributor']['delta_offset'] = '0';
   $handler->display->display_options['fields']['field_author_contributor']['delta_reversed'] = 0;
   $handler->display->display_options['fields']['field_author_contributor']['field_api_classes'] = 0;
-  /* Field: Fields: Date of story */
+  /* Field: Content: Date of story */
   $handler->display->display_options['fields']['field_date']['id'] = 'field_date';
   $handler->display->display_options['fields']['field_date']['table'] = 'field_data_field_date';
   $handler->display->display_options['fields']['field_date']['field'] = 'field_date';
@@ -63,11 +64,11 @@ function family_history_distro_core_views_default_views() {
   $handler->display->display_options['fields']['field_date']['alter']['absolute'] = 0;
   $handler->display->display_options['fields']['field_date']['alter']['external'] = 0;
   $handler->display->display_options['fields']['field_date']['alter']['replace_spaces'] = 0;
-  $handler->display->display_options['fields']['field_date']['alter']['trim'] = 0;
   $handler->display->display_options['fields']['field_date']['alter']['nl2br'] = 0;
   $handler->display->display_options['fields']['field_date']['alter']['word_boundary'] = 1;
   $handler->display->display_options['fields']['field_date']['alter']['ellipsis'] = 1;
   $handler->display->display_options['fields']['field_date']['alter']['strip_tags'] = 0;
+  $handler->display->display_options['fields']['field_date']['alter']['trim'] = 0;
   $handler->display->display_options['fields']['field_date']['alter']['html'] = 0;
   $handler->display->display_options['fields']['field_date']['element_label_colon'] = 1;
   $handler->display->display_options['fields']['field_date']['element_default_classes'] = 1;
@@ -82,7 +83,7 @@ function family_history_distro_core_views_default_views() {
     'show_repeat_rule' => 'show',
   );
   $handler->display->display_options['fields']['field_date']['field_api_classes'] = 0;
-  /* Field: Fields: File attachments */
+  /* Field: Content: File attachments */
   $handler->display->display_options['fields']['file']['id'] = 'file';
   $handler->display->display_options['fields']['file']['table'] = 'field_data_file';
   $handler->display->display_options['fields']['file']['field'] = 'file';
@@ -91,11 +92,11 @@ function family_history_distro_core_views_default_views() {
   $handler->display->display_options['fields']['file']['alter']['absolute'] = 0;
   $handler->display->display_options['fields']['file']['alter']['external'] = 0;
   $handler->display->display_options['fields']['file']['alter']['replace_spaces'] = 0;
-  $handler->display->display_options['fields']['file']['alter']['trim'] = 0;
   $handler->display->display_options['fields']['file']['alter']['nl2br'] = 0;
   $handler->display->display_options['fields']['file']['alter']['word_boundary'] = 1;
   $handler->display->display_options['fields']['file']['alter']['ellipsis'] = 1;
   $handler->display->display_options['fields']['file']['alter']['strip_tags'] = 0;
+  $handler->display->display_options['fields']['file']['alter']['trim'] = 0;
   $handler->display->display_options['fields']['file']['alter']['html'] = 0;
   $handler->display->display_options['fields']['file']['element_label_colon'] = 1;
   $handler->display->display_options['fields']['file']['element_default_classes'] = 1;
@@ -106,7 +107,7 @@ function family_history_distro_core_views_default_views() {
   $handler->display->display_options['fields']['file']['delta_offset'] = '0';
   $handler->display->display_options['fields']['file']['delta_reversed'] = 0;
   $handler->display->display_options['fields']['file']['field_api_classes'] = 0;
-  /* Field: Fields: Location */
+  /* Field: Content: Location */
   $handler->display->display_options['fields']['field_location']['id'] = 'field_location';
   $handler->display->display_options['fields']['field_location']['table'] = 'field_data_field_location';
   $handler->display->display_options['fields']['field_location']['field'] = 'field_location';
@@ -115,11 +116,11 @@ function family_history_distro_core_views_default_views() {
   $handler->display->display_options['fields']['field_location']['alter']['absolute'] = 0;
   $handler->display->display_options['fields']['field_location']['alter']['external'] = 0;
   $handler->display->display_options['fields']['field_location']['alter']['replace_spaces'] = 0;
-  $handler->display->display_options['fields']['field_location']['alter']['trim'] = 0;
   $handler->display->display_options['fields']['field_location']['alter']['nl2br'] = 0;
   $handler->display->display_options['fields']['field_location']['alter']['word_boundary'] = 1;
   $handler->display->display_options['fields']['field_location']['alter']['ellipsis'] = 1;
   $handler->display->display_options['fields']['field_location']['alter']['strip_tags'] = 0;
+  $handler->display->display_options['fields']['field_location']['alter']['trim'] = 0;
   $handler->display->display_options['fields']['field_location']['alter']['html'] = 0;
   $handler->display->display_options['fields']['field_location']['element_label_colon'] = 1;
   $handler->display->display_options['fields']['field_location']['element_default_classes'] = 1;
@@ -130,7 +131,7 @@ function family_history_distro_core_views_default_views() {
   $handler->display->display_options['fields']['field_location']['delta_offset'] = '0';
   $handler->display->display_options['fields']['field_location']['delta_reversed'] = 0;
   $handler->display->display_options['fields']['field_location']['field_api_classes'] = 0;
-  /* Field: Fields: Source */
+  /* Field: Content: Source */
   $handler->display->display_options['fields']['field_source']['id'] = 'field_source';
   $handler->display->display_options['fields']['field_source']['table'] = 'field_data_field_source';
   $handler->display->display_options['fields']['field_source']['field'] = 'field_source';
@@ -139,11 +140,11 @@ function family_history_distro_core_views_default_views() {
   $handler->display->display_options['fields']['field_source']['alter']['absolute'] = 0;
   $handler->display->display_options['fields']['field_source']['alter']['external'] = 0;
   $handler->display->display_options['fields']['field_source']['alter']['replace_spaces'] = 0;
-  $handler->display->display_options['fields']['field_source']['alter']['trim'] = 0;
   $handler->display->display_options['fields']['field_source']['alter']['nl2br'] = 0;
   $handler->display->display_options['fields']['field_source']['alter']['word_boundary'] = 1;
   $handler->display->display_options['fields']['field_source']['alter']['ellipsis'] = 1;
   $handler->display->display_options['fields']['field_source']['alter']['strip_tags'] = 0;
+  $handler->display->display_options['fields']['field_source']['alter']['trim'] = 0;
   $handler->display->display_options['fields']['field_source']['alter']['html'] = 0;
   $handler->display->display_options['fields']['field_source']['element_label_colon'] = 1;
   $handler->display->display_options['fields']['field_source']['element_default_classes'] = 1;
@@ -177,26 +178,6 @@ function family_history_distro_core_views_default_views() {
 
   /* Display: Block */
   $handler = $view->new_display('block', 'Block', 'content_metainfo');
-  $translatables['metainfo'] = array(
-    t('Master'),
-    t('metainfo'),
-    t('more'),
-    t('Apply'),
-    t('Reset'),
-    t('Sort by'),
-    t('Asc'),
-    t('Desc'),
-    t('Items per page'),
-    t('- All -'),
-    t('Offset'),
-    t('Author or contributor'),
-    t('Date of story'),
-    t('File attachments'),
-    t('Location'),
-    t('Source'),
-    t('All'),
-    t('Block'),
-  );
   $export['metainfo'] = $view;
 
   return $export;
