@@ -1,3 +1,42 @@
 <?php
 
 include_once('family_history_distro_core.features.inc');
+
+function fhd_core_type_pluralizer($machine_name) {
+  switch($machine_name) {
+    case 'autobiography':
+      return t("Autobiographies");
+      break;
+
+    case 'biography':
+      return t("Biographies");
+      break;
+
+    case 'funeral':
+      return t("Funerals");
+      break;
+
+    case 'journal':
+      return t("Journals");
+      break;
+
+    case 'obituary':
+      return t('Obituaries');
+      break;
+
+    case 'patriarchal_blessing':
+      return t('Patriarchal Blessings');
+      break;
+
+    case 'story':
+      return t('Stories');
+      break;
+
+    case 'will':
+      return t('Wills');
+      break;
+
+    default:
+      return $machine_name;
+  }
+}

@@ -53,6 +53,10 @@ function fhd_person_mapping_theme() {
       'template' => 'fhd_person_mapping_block',
       'variables' => array('person' => NULL, 'nid' => NULL),
     ),
+    'fhd_person_mapping_tagged_block' => array(
+      'template' => 'fhd_person_mapping_tagged_block',
+      'variables' => array('nodes' => NULL),
+    ),
   );
 }
 
@@ -125,6 +129,9 @@ function fhd_person_mapping_block_info() {
   $blocks['fhd_person_mapping_people'] = array(
     'info' => t('Associated People Block'),
   );
+  $blocks['fhd_person_tagged_nodes'] = array(
+    'info' => t('Nodes tagged with person'),
+  );
 
   return $blocks;
 }
@@ -138,19 +145,45 @@ function fhd_person_mapping_block_view($delta = '') {
     case 'fhd_person_mapping_people':
       $block = _fhd_person_mapping_people_block();
       break;
+    case 'fhd_person_tagged_nodes':
+      $block = _fhd_person_tagged_nodes_block();
+      break;
   }
   return $block;
 }
 
 function _fhd_person_mapping_people_block() {
   $block['subject'] = "";
-  $block['content'] =  drupal_get_form('fhd_person_mapping_autocomplete');
+  $block['content'] = drupal_get_form('fhd_person_mapping_autocomplete');
+
+  return $block;
+}
+
+function _fhd_person_tagged_nodes_block() {
+  $block['subject'] = "";
+  $pid = arg(1);
+  $nodes = fhd_person_mapping_load_content($pid);
+
+  $types = array();
+  foreach ($nodes as $node) {
+    $types[$node->type][] = $node;
+  }
+  $content = "";
+  $count = 1;
+  foreach ($types as $nodes) {
+    $content .= theme('fhd_person_mapping_tagged_block', array('nodes' => $nodes));
+    if($count % 3 === 0) {
+      $content .= "<br style='clear:both' />";
+    }
+    $count++;
+  }
+  $block['content'] = $content;
 
   return $block;
 }
 
 function _fhd_person_mapping_related_person($nid) {
-  $persons = fhd_person_mapping_load($nid);
+  $persons = fhd_person_mapping_load_people($nid);
   $content = "";
   $content .= "<div>";
   foreach ($persons as $person) {
@@ -248,7 +281,7 @@ function fhd_person_mapping_views_data() {
 function fhd_person_mapping_permission() {
   return array(
     'adminster content-person mappings' => array(
-      'title' => t('Administer mappings between content and people'), 
+      'title' => t('Administer mappings between content and people'),
       'description' => t('Permission to create and delete mappings between a person and content.'),
     ),
   );
@@ -275,7 +308,7 @@ function fhd_person_mapping_create($nid, $pid) {
 /**
  * Load all entities related to a certain nid.
  */
-function fhd_person_mapping_load($nid) {
+function fhd_person_mapping_load_people($nid) {
   // Select all persons associated with this node.
   $result = db_query("SELECT pid FROM {fhd_content_person_mapping} WHERE nid = :nid",
     array(':nid' => $nid));
@@ -304,4 +337,17 @@ function fhd_person_mapping_delete($nid, $pid) {
       ->condition('pid', $pid)
       ->execute();
   }
+}
+
+/**
+ * Load all node entities related to a person.
+ */
+function fhd_person_mapping_load_content($pid) {
+  $query = db_select('fhd_content_person_mapping', 'm');
+  $query->join('node', 'n', 'm.nid = n.nid');
+  return $query->fields('n', array('nid', 'title', 'type'))
+    ->condition('m.pid', $pid)
+    ->addTag('node_access')
+    ->execute()
+    ->fetchAll();
 }
