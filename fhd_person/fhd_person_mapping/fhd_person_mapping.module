@@ -43,6 +43,15 @@ function fhd_person_mapping_menu() {
   return $items;
 }
 
+/**
+ * Implements hook_node_delete().
+ *
+ * When a node is deleted, delete as well any person/node mappings associated
+ * with that node.
+ */
+function fhd_person_mapping_node_delete($node) {
+  fhd_person_mapping_delete_nid($node->nid);
+}
 
 /**
  * Implementation of hook_theme()
@@ -76,8 +85,10 @@ function template_preprocess_fhd_person_mapping_block(&$vars) {
 function _fhd_person_mapping_ajax_callback() {
   // Do whatever is needed here
   if ($_REQUEST['action'] == 'remove') {
-    fhd_person_mapping_delete($_REQUEST['nid'], $_REQUEST['pid']);
-    exit();
+    if (user_access('adminster content-person mappings')) {
+      fhd_person_mapping_delete($_REQUEST['nid'], $_REQUEST['pid']);
+      exit();
+    }
   }
 
   print_r($_REQUEST);
@@ -320,11 +331,9 @@ function fhd_person_mapping_load_people($nid) {
  * Delete mappings related to a nid.
  */
 function fhd_person_mapping_delete_nid($nid) {
-  if (user_access('adminster content-person mappings')) {
-    return db_delete('fhd_content_person_mapping')
-      ->condition('nid', $nid)
-      ->execute();
-  }
+  return db_delete('fhd_content_person_mapping')
+    ->condition('nid', $nid)
+    ->execute();
 }
 
 /**
