@@ -71,6 +71,53 @@ function fhd_person_schema() {
       'gedcom_id' => array('gedcom_id'),
     ),
   );
+  $schema['fhd_person_surname_count'] = array(
+    'description' => 'Stores fhd_person data.',
+    'fields' => array(
+      'count' => array(
+        'type' => 'int',
+        'size' => 'medium',
+        'description' => 'How many people have this surname',
+      ),
+      'surname' => array(
+        'type' => 'varchar',
+        'length' => 256,
+      ),
+    ),
+    'indexes' => array(
+      'count' => array('count'),
+    ),
+  );
 
   return $schema;
+}
+
+/**
+ * Add a new table to hold count of the number of each surname.
+ */
+function fhd_person_update_7100() {
+  $ret = array();
+
+  $schema['fhd_person_surname_count'] = array(
+    'description' => 'Stores fhd_person data.',
+    'fields' => array(
+      'count' => array(
+        'type' => 'int',
+        'not null' => TRUE,
+        'size' => 'medium',
+        'description' => 'How many people have this surname',
+      ),
+      'surname' => array(
+        'type' => 'varchar',
+        'length' => 256,
+      ),
+    ),
+    'indexes' => array(
+      'count' => array('count'),
+    ),
+  );
+
+  db_create_table('fhd_person_surname_count', $schema['fhd_person_surname_count']);
+
+  return $ret;
 }

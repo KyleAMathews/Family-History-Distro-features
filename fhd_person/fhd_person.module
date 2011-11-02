@@ -397,3 +397,34 @@ function fhd_person_views_pre_render(&$view) {
     drupal_set_title($view->result[0]->fhd_person_name . " (" . $birth_year . ")");
   }
 }
+
+/**
+ * Calculate the number of each surname.
+ */
+function fhd_person_calculate_surname_count() {
+  $results = db_query("SELECT name FROM fhd_person");
+  $surname_count = array();
+  foreach($results as $result) {
+    // Split off last name and make lowercase.
+    $surname = strtolower(array_pop(explode(' ', $result->name)));
+    if (empty($surname)) { continue; }
+    if (array_key_exists($surname, $surname_count)) {
+      $surname_count[$surname] = $surname_count[$surname] + 1;
+    }
+    else {
+      $surname_count[$surname] = 1;
+    }
+  }
+
+  // Truncate the surname count database.
+  db_truncate('fhd_person_surname_count');
+
+  foreach ($surname_count as $surname => $count) {
+    db_insert('fhd_person_surname_count')
+      ->fields(array(
+        'surname' => $surname,
+        'count' => $count,
+      ))
+      ->execute();
+  }
+}
