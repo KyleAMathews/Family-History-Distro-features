@@ -1,0 +1,146 @@
+<?php
+/**
+ * @file
+ * Code for the fhd_frontpage feature.
+ */
+
+include_once('fhd_frontpage.features.inc');
+
+/**
+ * Implementation of hook_menu()
+ */
+function fhd_frontpage_menu() {
+  $items = array();
+
+  $items['frontpage'] = array(
+    'title' => '',
+    'page callback' => 'fhd_frontpage_home',
+    'type' => MENU_NORMAL_ITEM,
+    'access callback' => TRUE,
+  );
+
+
+  return $items;
+}
+
+function fhd_frontpage_home() {
+  return "";
+}
+
+/**
+ * Implementation of hook_theme()
+ */
+function fhd_frontpage_theme() {
+  return array(
+    'fhd_frontpage_block' => array(
+      'template' => 'fhd_frontpage_block',
+      'variables' => array('profile' => NULL, 'nodes' => NULL),
+    ),
+  );
+}
+
+/**
+ * Implementation of hook_block_info().
+ */
+function fhd_frontpage_block_info() {
+  $blocks['fhd_frontpage_top_surnames'] = array(
+    'info' => t('Top Surnames'),
+  );
+  $blocks['fhd_frontpage_promoted_people'] = array(
+    'info' => t('Featured Ancestors'),
+  );
+
+  return $blocks;
+}
+
+/**
+ * Implements hook_block_view().
+ */
+function fhd_frontpage_block_view($delta = '') {
+  //The $delta parameter tells us which block is being requested.
+  switch ($delta) {
+    case 'fhd_frontpage_top_surnames':
+      $block = _fhd_frontpage_top_surnames_block();
+      break;
+    case 'fhd_frontpage_promoted_people':
+      $block = _fhd_frontpage_promoted_people_block();
+      break;
+  }
+  return $block;
+}
+
+/**
+ * Build the top surnames block.
+ */
+function _fhd_frontpage_top_surnames_block() {
+  $block['subject'] = "Top Surnames";
+  $content = "<ul>";
+  $results = db_query("SELECT surname, count
+    FROM fhd_person_surname_count
+    ORDER BY count DESC
+    LIMIT 20");
+  foreach ($results as $result) {
+    $content .= "<li>" . ucfirst($result->surname) . " (". $result->count . ")</li>";
+  }
+  $content .= "</ul>";
+  $block['content'] = $content;
+
+  return $block;
+}
+
+/**
+ * Randomly select 4 dead people who have at least 2 pieces of content and feature
+ * them on the front page.
+ */
+function _fhd_frontpage_promoted_people_block() {
+  $results = db_query("SELECT m.pid
+    FROM fhd_content_person_mapping m
+    INNER JOIN fhd_person f
+    ON m.pid = f.pid
+    WHERE ((f.death_date IS NOT NULL OR f.death_date != 0)
+    AND (f.birth_date IS NOT NULL OR f.birth_date != 0))
+    OR f.birth_date < (Unix_timestamp() - 3153600000)
+    GROUP BY m.pid
+    HAVING count(*) >= 2
+    ORDER BY rand()
+    LIMIT 6")->fetchAll();
+  $pids = array();
+  foreach ($results as $result) {
+    $pids[] = $result->pid;
+  }
+  $persons = entity_load('fhd_person', $pids);
+
+  $content = "<h1>Featured Ancestors</h1>";
+  $count = 1;
+  foreach ($persons as $person) {
+    // Query for 3 titles.
+    $query = db_select('fhd_content_person_mapping', 'm');
+    $query->join('node', 'n', 'm.nid = n.nid');
+    $nodes = $query->fields('n', array('nid', 'title', 'type'))
+      ->condition('m.pid', $person->pid)
+      ->orderRandom()
+      ->range(0,2)
+      ->addTag('node_access')
+      ->execute()
+      ->fetchAll();
+    if (count($nodes) === 0) { continue; }
+
+    // Create the person profile w/ name and dates.
+    $ancestor_profile = theme('fhd_person_mapping_block', array('person' => $person));
+
+    // Assemble all the pieces together.
+    $content .= theme('fhd_frontpage_block', array('profile' => $ancestor_profile,
+     'nodes' => $nodes));
+
+    // Make sure the next row clears.
+    if ($count === 3) {
+      $content .= "<br style='clear:both'>";
+    }
+    $count++;
+  }
+
+  $block['subject'] = "";
+  $block['content'] = $content;
+
+  return $block;
+}
