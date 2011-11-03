@@ -20,6 +20,10 @@ function fhd_core_type_pluralizer($machine_name) {
       return t("Journals");
       break;
 
+    case 'letter':
+      return t("Letters");
+      break;
+
     case 'obituary':
       return t('Obituaries');
       break;

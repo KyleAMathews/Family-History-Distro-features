@@ -175,18 +175,20 @@ function _fhd_person_tagged_nodes_block() {
   $pid = arg(1);
   $nodes = fhd_person_mapping_load_content($pid);
 
-  $types = array();
-  foreach ($nodes as $node) {
-    $types[$node->type][] = $node;
-  }
   $content = "";
-  $count = 1;
-  foreach ($types as $nodes) {
-    $content .= theme('fhd_person_mapping_tagged_block', array('nodes' => $nodes));
-    if($count % 3 === 0) {
+  if (!empty($nodes)) {
+    $types = array();
+    foreach ($nodes as $node) {
+      $types[$node->type][] = $node;
+    }
+
+    $content .= "<div id='tagged-content'>";
+    $content .= "<h1>Tagged content</h1>";
+    foreach ($types as $nodes) {
+      $content .= theme('fhd_person_mapping_tagged_block', array('nodes' => $nodes));
       $content .= "<br style='clear:both' />";
     }
-    $count++;
+    $content .= "</div>";
   }
   $block['content'] = $content;
 
@@ -354,9 +356,16 @@ function fhd_person_mapping_delete($nid, $pid) {
 function fhd_person_mapping_load_content($pid) {
   $query = db_select('fhd_content_person_mapping', 'm');
   $query->join('node', 'n', 'm.nid = n.nid');
-  return $query->fields('n', array('nid', 'title', 'type'))
+  $results = $query->fields('n', array('nid'))
     ->condition('m.pid', $pid)
     ->addTag('node_access')
     ->execute()
     ->fetchAll();
+
+  $nids = array();
+  foreach ($results as $result) {
+    $nids[] = $result->nid;
+  }
+  return entity_load('node', $nids);
+
 }
