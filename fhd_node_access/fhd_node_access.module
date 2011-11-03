@@ -36,6 +36,12 @@ function fhd_node_access_node_access_records($node) {
     $result = $restricted;
   }
 
+  // If this node is of type patriarchal_blessing, always set it as restricted.
+  if ($node->type === 'patriarchal_blessing') {
+    $result = 1;
+  }
+
+
   if (empty($result)) {
     // If there's nothing in the database, this means that there's no restrictions
     // so anonymous folks can view (but not update or delete) the content.
