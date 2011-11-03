@@ -64,6 +64,50 @@ function family_history_distro_core_context_default_contexts() {
   $context = new stdClass;
   $context->disabled = FALSE; /* Edit this to true to make a default context disabled initially */
   $context->api_version = 3;
+  $context->name = 'frontpage';
+  $context->description = 'Context for frontpage';
+  $context->tag = '';
+  $context->conditions = array(
+    'path' => array(
+      'values' => array(
+        '<front>' => '<front>',
+      ),
+    ),
+  );
+  $context->reactions = array(
+    'block' => array(
+      'blocks' => array(
+        'boxes-box-9196a7e4' => array(
+          'module' => 'boxes',
+          'delta' => 'box-9196a7e4',
+          'region' => 'content',
+          'weight' => '-19',
+        ),
+        'fhd_person-fhd_person_promoted_people' => array(
+          'module' => 'fhd_person',
+          'delta' => 'fhd_person_promoted_people',
+          'region' => 'content',
+          'weight' => '-18',
+        ),
+        'fhd_person-fhd_person_top_surnames' => array(
+          'module' => 'fhd_person',
+          'delta' => 'fhd_person_top_surnames',
+          'region' => 'content',
+          'weight' => '-17',
+        ),
+      ),
+    ),
+  );
+  $context->condition_mode = 0;
+
+  // Translatables
+  // Included for use with string extractors like potx.
+  t('Context for frontpage');
+  $export['frontpage'] = $context;
+
+  $context = new stdClass;
+  $context->disabled = FALSE; /* Edit this to true to make a default context disabled initially */
+  $context->api_version = 3;
   $context->name = 'global';
   $context->description = 'global contexts';
   $context->tag = 'global';

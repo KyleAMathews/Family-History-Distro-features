@@ -1,5 +1,5 @@
 <div class="associated-person">
-  <span class="name"><?php print $person_link; ?></span> <br />
+  <h2 class="name"><?php print $person_link; ?></h2>
   <?php if (!empty($birth_string)): ?>
     <strong>Born:</strong> <?php print $birth_string; ?> <br />
   <?php endif; ?>
