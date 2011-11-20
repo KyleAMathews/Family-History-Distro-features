@@ -55,7 +55,7 @@ function family_history_distro_core_views_default_views() {
   $handler->display->display_options['fields']['field_author_contributor']['delta_offset'] = '0';
   $handler->display->display_options['fields']['field_author_contributor']['delta_reversed'] = 0;
   $handler->display->display_options['fields']['field_author_contributor']['field_api_classes'] = 0;
-  /* Field: Content: Date of story */
+  /* Field: Content: Date photo taken */
   $handler->display->display_options['fields']['field_date']['id'] = 'field_date';
   $handler->display->display_options['fields']['field_date']['table'] = 'field_data_field_date';
   $handler->display->display_options['fields']['field_date']['field'] = 'field_date';
