@@ -3,7 +3,7 @@
 module_load_include('inc', 'pathauto', 'pathauto');
 
 function bulk_insert_person_aliases() {
-  $results = db_query("SELECT * from fhd_person");
+  $results = db_query("SELECT name, birth_date from fhd_person");
   foreach ($results as $result) {
     save_person_alias($result);
   }
