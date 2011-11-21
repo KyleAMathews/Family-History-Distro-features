@@ -21,7 +21,7 @@ function save_person_alias($person) {
   db_insert('url_alias')
   ->fields(array(
       'source' => 'person/' . $person->pid,
-      'alias' => $alias,
+      'alias' => 'person/' . $alias,
       'language' => 'und',
   ))
   ->execute();
