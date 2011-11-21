@@ -336,7 +336,7 @@ function biography_field_default_fields() {
       'module' => 'file',
       'settings' => array(
         'default_file' => 0,
-        'display_default' => '1',
+        'display_default' => 1,
         'display_field' => 1,
         'uri_scheme' => 'public',
       ),
@@ -406,8 +406,24 @@ function biography_field_default_fields() {
         'user_register_form' => FALSE,
       ),
       'widget' => array(
+        'active' => 1,
         'module' => 'file',
         'settings' => array(
+          'filefield_sources' => array(
+            'filefield_sources' => array(
+              'attach' => 'attach',
+              'reference' => 0,
+              'remote' => 0,
+            ),
+            'source_attach' => array(
+              'absolute' => '0',
+              'attach_mode' => 'copy',
+              'path' => 'file_attach',
+            ),
+            'source_reference' => array(
+              'autocomplete' => '0',
+            ),
+          ),
           'progress_indicator' => 'throbber',
         ),
         'type' => 'file_generic',
