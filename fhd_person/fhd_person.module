@@ -383,18 +383,18 @@ function safestrtotime($strInput)
 
 
 /**
- * Implementation of hook_views_pre_render().
+ * Implementation of hook_views_post_render().
  **/
-function fhd_person_views_pre_render(&$view) {
+function fhd_person_views_post_render(&$view) {
   // Override the person page's Title with the name of the person.
   if ($view->name == "person_page_views") {
     $birth_year = "";
     $birth_date = $view->result[0]->fhd_person_birth_date;
     if (!empty($birth_date)) {
-      $birth_year = adodb_date("Y", $view->result[0]->fhd_person_birth_date);
+      $birth_year = " (" . adodb_date("Y", $view->result[0]->fhd_person_birth_date) . ")";
     }
 
-    drupal_set_title($view->result[0]->fhd_person_name . " (" . $birth_year . ")");
+    $view->build_info['title'] = $view->result[0]->fhd_person_name . $birth_year;
   }
 }
 
